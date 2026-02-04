@@ -1,1 +1,1 @@
-# Final_Project
+# Final Project: Social Influence Analysis Tool
