@@ -1,7 +1,7 @@
 import networkx as nx
 
 def compute_ktruss(G):
-    # Compute k-truss decomposition
+    # Compute k-truss decomposition - with static support (approx k-truss, not true decomposition)
 
     # Dictionary storing edge triangle counts - {(u, v): count}
     support = {}
@@ -16,7 +16,7 @@ def compute_ktruss(G):
     edge_truss = {}
     # Iterate through edges in Graph
     for (u, v) in G.edges():
-        # Calculate truss level(k) = support(triangle count) + 2 (minimum nodes required)
+        # Calculate truss level(k) = support(triangle count) + 2
         k = support[(u, v)] + 2
         # Assign k-truss to the edge in the dictionary
         edge_truss[(u, v)] = k
