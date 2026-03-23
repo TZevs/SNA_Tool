@@ -9,21 +9,18 @@ def detect_communities(G):
     # Returns a single list of node sets, 1 per community
     coms_list = nx.community.louvain_communities(H)
 
-    # Compute the modularity of the partition
-    mod = nx.community.modularity(G, coms_list)
+    partition_mod = nx.community.modularity(coms_list)
 
-    # Dictionary to store the communities in
+    node_coms = {}
+    for index, com in enumerate(coms_list):
+        for n in com:
+            node_coms[n] = f'c{index}'
+
+    # Dictionary to store the communities and their metrics
     coms_dict = {}
     # Iterate through the list, use enumerate to get the set index's
     for index, com in enumerate(coms_list):
         # Assign an ID as a key to each community
-        coms_dict[f'c{index}']['n'] = com
+        coms_dict[f'c{index}'] = list(com)
 
-        com_subgraph = H.subgraph(com)
-
-        # Compute general community metrics
-        coms_dict[f'c{index}']['node_count'] = nx.number_of_nodes(com_subgraph)
-        coms_dict[f'c{index}']['edge_count'] = nx.number_of_edges(com_subgraph)
-
-        # Compute degree centrality for the community subgraphs (intra-community degree)
-        coms_dict[f'c{index}']['intra_degree'] = nx.degree(com_subgraph)
+    return partition_mod, node_coms, coms_dict
