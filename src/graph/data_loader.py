@@ -1,6 +1,6 @@
 import pandas as pd
 
-def load_edges(file_path):
+def load_data(file_path):
     # Load the edges from the file in the path to a DataFrame
     df = pd.read_csv(file_path, sep=' ', names=['first_node', 'last_node'])
 
