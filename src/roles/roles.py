@@ -5,10 +5,21 @@ def assign_global_roles(df, thresholds):
     roles = {key: [] for key in keys}
 
     for row in df.itertuples():
-        if row.degree >= thresholds.loc['degree', 0.90]:
+       # Identifying global hubs using the global threshold boundaries
+        if (row.degree >= thresholds.loc['degree', 0.90] and row.global_closeness >= thresholds.loc['global_closeness', 0.75]
+                and row.global_core_num >= thresholds.loc['global_core_num', 0.50]):
             roles[row.node].append('hub')
 
-    return pd.DataFrame(roles)
+        # Identifying global brokers using the global thresholds boundaries
+        if (row.betweenness >= thresholds.loc['betweenness', 0.90] or row.betweenness >= thresholds.loc['betweenness', 0.75]
+                and row.global_closeness >= thresholds.loc['global_closeness', 0.75]):
+            roles[row.node].append('bridge')
+
+        # Identifying core nodes within the network using the global thresholds.
+        if row.global_core_num >= thresholds.loc['global_core_num', 0.90] and row.trussness >= thresholds.loc['trussness', 0.75]:
+            roles[row.node].append('core_nodes')
+
+    return pd.DataFrame(roles, columns=['node', 'global_role'])
 
 
 def assign_local_roles(df, thresholds):
@@ -27,8 +38,7 @@ def assign_local_roles(df, thresholds):
 
             # Identifying local bridges using the computed thresholds for this community
             if ((row.inter >= comm_thresh[('inter', 0.90)] or row.inter >= comm_thresh[('inter', 0.75)])
-                    and (row.intra <= comm_thresh[('intra', 0.25)] or row.intra <= comm_thresh[('intra', 0.50)])
-                    and row.betweenness >= comm_thresh[('betweenness', 0.75)]):
+                    and row.intra <= comm_thresh[('intra', 0.25)] and row.betweenness >= comm_thresh[('betweenness', 0.75)]):
                 roles[row.node].append('bridge')
 
             # Identifying local leaders using the computed thresholds for this community
@@ -36,4 +46,4 @@ def assign_local_roles(df, thresholds):
                     and row.intra >= comm_thresh[('intra', 0.50)]):
                 roles[row.node].append('leader')
 
-    return pd.DataFrame(roles)
+    return pd.DataFrame(roles, columns=['node', 'local_role'])
