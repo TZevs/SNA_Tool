@@ -9,7 +9,7 @@ def detect_communities(G):
     # Returns a single list of node sets, 1 per community
     coms_list = nx.community.louvain_communities(H)
 
-    partition_mod = nx.community.modularity(coms_list)
+    # partition_mod = nx.community.modularity(coms_list)
 
     node_coms = {}
     for index, com in enumerate(coms_list):
@@ -23,4 +23,4 @@ def detect_communities(G):
         # Assign an ID as a key to each community
         coms_dict[f'c{index}'] = list(com)
 
-    return partition_mod, node_coms, coms_dict
+    return node_coms, coms_dict
