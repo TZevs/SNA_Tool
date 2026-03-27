@@ -11,4 +11,4 @@ def compute_eigenvector(G):
     sorted_dict = sorted(raw_metrics.items(), key=lambda d: d[1], reverse=True)
 
     # Return dictionary {node: normalised_eigenvector_value}
-    return sorted_dict
+    return dict(sorted_dict)

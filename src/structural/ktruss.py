@@ -31,4 +31,4 @@ def compute_ktruss(G):
         node_truss[v] = max(2, truss_lvl)
 
     # Return dictionary {node: truss}
-    return node_truss
+    return dict(node_truss)

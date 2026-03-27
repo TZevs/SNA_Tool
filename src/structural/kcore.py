@@ -8,4 +8,4 @@ def compute_kcore(G):
     core_nums = nx.core_number(G)
 
     # Returns dictionary {node: core_value}
-    return core_nums
+    return dict(core_nums)
