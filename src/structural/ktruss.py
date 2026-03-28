@@ -2,6 +2,11 @@ import networkx as nx
 
 def compute_ktruss(G):
     # Compute k-truss decomposition - with static support (approx k-truss, not true decomposition)
+    node_num = G.number_of_nodes()
+    if node_num == 1:
+        return {list(G.nodes())[0]: 0}
+    elif node_num < 3:
+        return {n: 0 for n in G.nodes()}
 
     # Dictionary storing edge triangle counts - {(u, v): count}
     support = {}
