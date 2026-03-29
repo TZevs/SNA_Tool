@@ -4,8 +4,6 @@ def detect_communities(G):
     # Create copy of graph, so that changes are not made to the original
     H = G.copy()
 
-    #
-
     # Returns a single list of node sets, 1 per community
     coms_list = nx.community.louvain_communities(H)
 
