@@ -1,7 +1,12 @@
+import pandas as pd
+
 def compute_local_thresholds(df):
+    if len(df.index) == 0:
+        return pd.DataFrame()
+
     percentiles = [0.25, 0.50, 0.75, 0.90]
 
-    local_df = df[['intra', 'inter', 'local_closeness', 'local_core_num', 'betweenness']]
+    local_df = df[['community', 'intra', 'inter', 'local_closeness', 'local_core_num', 'betweenness']]
 
     local_thresholds = local_df.groupby('community').quantile(percentiles, interpolation='nearest').unstack()
 
@@ -9,6 +14,9 @@ def compute_local_thresholds(df):
 
 
 def compute_global_thresholds(df):
+    if len(df.index) == 0:
+        return pd.DataFrame()
+
     percentiles = [0.25, 0.50, 0.75, 0.90]
 
     global_df = df[['degree', 'global_closeness', 'global_core_num', 'betweenness', 'eigenvector', 'trussness']]
