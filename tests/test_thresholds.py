@@ -55,3 +55,11 @@ def test_thresholds_empty_df():
 
     assert glb.empty
     assert lcl.empty
+
+def test_threshold_df_access(test_df):
+    g_result = thresholds.compute_global_thresholds(test_df)
+    l_result = thresholds.compute_local_thresholds(test_df)
+
+    g_first_row = g_result.iloc[0]
+
+    assert g_first_row.index == 0.25
