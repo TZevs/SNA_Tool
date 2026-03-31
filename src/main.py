@@ -10,20 +10,22 @@ def run_main_pipeline(file_path='../data/facebook_combined.txt'):
     bet, close, deg, eigen, core, truss = metric_pipeline.run_global_metrics_pipeline(G)
 
     node_comms, comms = detect.detect_communities(G)
-    intra, inter, l_close, l_core = metric_pipeline.run_local_metrics_pipeline(G, node_comms, comms)
+    l_close, l_core, z_score, part_eff = metric_pipeline.run_local_metrics_pipeline(G, node_comms, comms)
 
-    metric_df = df_builder.build_metrics_df(G, node_comms, intra, inter, l_close, l_core, bet, close, deg, eigen, core, truss)
+    df = df_builder.build_metrics_df(G, node_comms, l_close, l_core, bet, close, deg, eigen, core, truss, z_score, part_eff)
 
-    l_thresh = thresholds.compute_local_thresholds(metric_df)
-    g_thresh = thresholds.compute_global_thresholds(metric_df)
+    local_thresholds = thresholds.get_local_thresholds()
+    global_thresholds = thresholds.compute_global_thresholds(df)
 
-    local_roles = roles.assign_local_roles(metric_df, l_thresh)
-    global_roles = roles.assign_global_roles(metric_df, g_thresh)
+    local_roles_df = roles.assign_local_roles(df, local_thresholds, node_comms)
+    global_roles_df = roles.assign_global_roles(df, global_thresholds)
 
-    df = metric_df.merge(local_roles, on='node', how='left')
-    df = df.merge(global_roles, on='node', how='left')
+    #df = metric_df.merge(local_roles, on='node', how='left')
+    #df = df.merge(global_roles, on='node', how='left')
 
     df.to_csv('../data/sna_result_data.csv')
+    local_roles_df.to_csv('../data/local_roles.csv')
+    global_roles_df.to_csv('../data/global_roles.csv')
 
     return
 
