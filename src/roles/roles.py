@@ -1,75 +1,71 @@
 import pandas as pd
 
-# Flattening the dict to have a role and node per row, instead of a list.
-# Needed for grouping later
-def flatten_df_helper(role_dict, col):
-    rows = [
-        {'node': node, col: role}
-        for node, role_list in role_dict.items()
-        for role in role_list
-    ]
-    return pd.DataFrame.from_dict(rows)
-
 def assign_global_roles(df, thresholds):
-    roles = {node: [] for node in df['node']}
+    global_roles = {node: [] for node in df['node']}
 
     for row in df.itertuples():
        # Identifying global hubs using the global threshold boundaries
-        if (
-            row.degree >= thresholds.loc[0.90, 'degree'] and
-            row.global_closeness >= thresholds.loc[0.90, 'global_closeness'] and
-            row.global_core_num >= thresholds.loc[0.75, 'global_core_num']
+        if (row.degree >= thresholds.loc[0.90, 'degree'] and
+            row.eigenvector >= thresholds.loc[0.90, 'eigenvector']
         ):
-            roles[row.node].append('global_hub')
+            global_roles[row.node].append('Global Hub')
 
         # Identifying global brokers using the global thresholds boundaries
-        if (
-            row.betweenness >= thresholds.loc[0.90, 'betweenness'] and
-            row.global_closeness >= thresholds.loc[0.90, 'global_closeness']
+        if (row.betweenness >= thresholds.loc[0.90, 'betweenness'] and
+            row.global_closeness <= thresholds.loc[0.25, 'global_closeness'] and
+            row.eigenvector <= thresholds.loc[0.25, 'eigenvector'] and
+            row.degree <= thresholds.loc[0.50, 'degree']
         ):
-            roles[row.node].append('global_bridge')
+            global_roles[row.node].append('Global Broker')
 
         # Identifying core nodes within the network using the global thresholds.
-        if (
-            row.global_core_num >= thresholds.loc[0.90, 'global_core_num'] and
-            row.trussness >= thresholds.loc[0.75, 'trussness']
+        if (row.global_core_num >= thresholds.loc[0.90, 'global_core_num'] and
+            row.trussness >= thresholds.loc[0.90, 'trussness']
         ):
-            roles[row.node].append('global_core_node')
+            global_roles[row.node].append('Global Core')
 
-    return flatten_df_helper(roles, 'global_role')
+        if thresholds.loc[0.90, 'global_core_num'] >= row.global_core_num >= thresholds.loc[0.75, 'global_core_num']:
+            global_roles[row.node].append('Global Spreader')
+
+        if row.global_core_num <= thresholds.loc[0.25, 'global_core_num']:
+            global_roles[row.node].append('Global Peripheral')
+
+    df = pd.DataFrame(
+        {'node': node,'global_role': role}
+        for node, roles in global_roles.items()
+        for role in roles
+    )
+    return df
 
 
-def assign_local_roles(df, thresholds):
-    roles = {node: [] for node in df['node']}
+def assign_local_roles(df, thresholds, node_comms):
+    local_roles = {node: [] for node in df['node']}
 
     communities = df.groupby('community')
 
     for community, comm in communities:
-        comm_thresh = thresholds.loc[community]
-
         for row in comm.itertuples():
-            # Identifying local hubs using the computed thresholds for this community
-            if (
-                row.intra >= comm_thresh[('intra', 0.90)] and
-                row.local_closeness >= comm_thresh[('local_closeness', 0.50)] and
-                row.local_core_num >= comm_thresh[('local_core_num', 0.50)]
-            ):
-                roles[row.node].append('local_hub')
+            P = row.local_P
+            if row.local_zscore >= thresholds['z_hub']:
+                if P <= thresholds['p_provincial_max']:
+                    local_roles[row.node].append('Local Provincial Hub')
+                elif P <= thresholds['p_connector_hub_max']:
+                    local_roles[row.node].append('Local Connector Hub')
+                else:
+                    local_roles[row.node].append('Local Kinless Hub')
+            elif row.local_zscore < thresholds['z_hub']:
+                if P <= thresholds['p_ultra_max']:
+                    local_roles[row.node].append('Local Ultra-Peripheral')
+                elif P <= thresholds['p_peripheral_max']:
+                    local_roles[row.node].append('Local Peripheral')
+                elif P <= thresholds['p_connector_max']:
+                    local_roles[row.node].append('Local Connector')
+                else:
+                    local_roles[row.node].append('Local Kinless')
 
-            # Identifying local bridges using the computed thresholds for this community
-            if (
-                 row.inter >= comm_thresh[('inter', 0.90)] and
-                 row.intra <= comm_thresh[('intra', 0.25)] and
-                 row.betweenness >= comm_thresh[('betweenness', 0.75)]
-            ):
-                roles[row.node].append('local_bridge')
-
-            # Identifying local leaders using the computed thresholds for this community
-            if (
-                row.local_closeness >= comm_thresh[('local_closeness', 0.90)] and
-                row.local_core_num >= comm_thresh[('local_core_num', 0.50)] and
-                row.intra >= comm_thresh[('intra', 0.50)]
-            ):
-                roles[row.node].append('local_leader')
-
-    return flatten_df_helper(roles, 'local_role')
+    df = pd.DataFrame(
+        {'node': node, 'community': node_comms[node], 'local_role': role}
+        for node, roles in local_roles.items()
+        for role in roles
+    )
+    return df
