@@ -4,13 +4,13 @@ def assign_global_roles(df, thresholds):
     global_roles = {node: [] for node in df['node']}
 
     for row in df.itertuples():
-       # Identifying global hubs using the global threshold boundaries
+       # Identifying global_metrics hubs using the global_metrics threshold boundaries
         if (row.degree >= thresholds.loc[0.90, 'degree'] and
             row.eigenvector >= thresholds.loc[0.90, 'eigenvector']
         ):
             global_roles[row.node].append('Global Hub')
 
-        # Identifying global brokers using the global thresholds boundaries
+        # Identifying global_metrics brokers using the global_metrics thresholds boundaries
         if (row.betweenness >= thresholds.loc[0.90, 'betweenness'] and
             row.global_closeness <= thresholds.loc[0.25, 'global_closeness'] and
             row.eigenvector <= thresholds.loc[0.25, 'eigenvector'] and
@@ -18,7 +18,7 @@ def assign_global_roles(df, thresholds):
         ):
             global_roles[row.node].append('Global Broker')
 
-        # Identifying core nodes within the network using the global thresholds.
+        # Identifying core nodes within the network using the global_metrics thresholds.
         if (row.global_core_num >= thresholds.loc[0.90, 'global_core_num'] and
             row.trussness >= thresholds.loc[0.90, 'trussness']
         ):
