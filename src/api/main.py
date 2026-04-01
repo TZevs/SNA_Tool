@@ -1,6 +1,7 @@
 from graph import data_loader, graph_builder
 from community import detect
-from roles import df_builder, thresholds, roles
+from roles import thresholds, roles
+from utils import df_builder
 from pipelines import metric_pipeline
 
 def run_main_pipeline(file_path='../data/facebook_combined.txt'):
