@@ -1,7 +1,7 @@
 import pytest
 import networkx as nx
 
-from src.structural import betweenness, closeness, degree, eigenvector, kcore, ktruss
+from src.global_metrics import betweenness, closeness, degree, eigenvector, kcore, ktruss
 
 @pytest.mark.parametrize('centrality', [
     betweenness.compute_betweenness,
