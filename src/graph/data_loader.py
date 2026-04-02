@@ -9,7 +9,7 @@ def load_data(file_path):
 
     # Remove self-loops (edges where 'first_node' == 'last_node')
     # Using boolean indexing to filter out rows where 'first_node' == 'last_node'
-    filtered_df = df[df['first_node'] != df['last_node']]
+    edge_df = df[df['first_node'] != df['last_node']]
 
     # Return the filtered DataFrame (edge list)
-    return filtered_df
+    return edge_df
