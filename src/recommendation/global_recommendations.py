@@ -28,7 +28,10 @@ def recommend_global_roles():
         'meaning': 'Weakly connected and isolated in the global structure, with limited access to information.',
         'target': 'For inclusion and re-engagement.'
     }
-    df = pd.DataFrame.from_dict(global_recs, orient='index')
-    df = df.rename(columns={'index': 'global_role'})
 
+    # Convert to DataFrame
+    df = pd.DataFrame.from_dict(global_recs, orient='index', columns=['reason', 'meaning', 'target']).reset_index()
+
+    # Rename index column
+    df = df.rename(columns={'index': 'role'})
     return df
