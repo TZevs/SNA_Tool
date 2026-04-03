@@ -30,7 +30,7 @@ def recommend_global_roles():
     }
 
     # Convert to DataFrame
-    df = pd.DataFrame.from_dict(global_recs, orient='index', columns=['reason', 'meaning', 'target']).reset_index()
+    df = pd.DataFrame.from_dict(global_recs, orient='index').reset_index()
 
     # Rename index column
     df = df.rename(columns={'index': 'role'})
