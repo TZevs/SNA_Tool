@@ -34,10 +34,12 @@ def run_pipeline(file_path='../../data/raw/facebook_combined.txt'):
     global_recs = recommend_global_roles()
     local_recs = recommend_local_roles(local_roles_df)
 
-    df.to_csv('../../data/processed/metric_data.csv')
+    local_roles_df = local_roles_df.drop('community', axis=1)
+    df = df.merge(local_roles_df, on='node', how='left')
+    df = df.merge(global_roles_df, on='node', how='left')
 
-    local_roles_df.to_csv('../../data/processed/local_roles.csv')
-    global_roles_df.to_csv('../../data/processed/global_roles.csv')
+    df.to_csv('../../data/processed/node_data.csv')
+    edge_df.to_csv('../../data/processed/edge_data.csv')
 
     global_recs.to_csv('../../data/processed/global_recs.csv')
     local_recs.to_csv('../../data/processed/local_recs.csv')
