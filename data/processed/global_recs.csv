@@ -1,6 +1,0 @@
-,reason,meaning,target
-Global Hub,Has many direct links and is linked to other highly connected or influential nodes.,"Popular node, anchors global connectivity and acts as a central access point for information.",To ensure information and or resources reach large sections of the network efficiently.
-Global Broker,Sits on many shortest paths between users.,Acts as a bridge between otherwise disconnected sections of the network.,"To enable cross-community connection communication, reduce risk of network disconnection."
-Global Core,Is deeply embedded in the main structure of the network.,Forms part of the structural spine that provides network stability.,To support long-term influence over the network.
-Global Spreader,Sits within the high k-shells of the network.,Provides efficient reach without being in the main core.,To enable fast and wide spread of information and resources.
-Global Peripheral,Sits in the outer shells of the network.,"Weakly connected and isolated in the global structure, with limited access to information.",For inclusion and re-engagement.
