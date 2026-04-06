@@ -10,9 +10,6 @@ from utils.df_builder import build_metrics_df
 
 from pipelines.metric_pipeline import run_global_metrics_pipeline, run_local_metrics_pipeline
 
-from recommendation.global_recommendations import recommend_global_roles
-from recommendation.local_recommendations import recommend_local_roles
-
 def run_pipeline(file_path='../../data/raw/facebook_combined.txt'):
     edge_df = load_data(file_path)
     G = build_graph(edge_df)
@@ -31,17 +28,11 @@ def run_pipeline(file_path='../../data/raw/facebook_combined.txt'):
     local_roles_df = assign_local_roles(df, local_thresholds, node_comms)
     global_roles_df = assign_global_roles(df, global_thresholds)
 
-    global_recs = recommend_global_roles()
-    local_recs = recommend_local_roles(local_roles_df)
-
     local_roles_df = local_roles_df.drop('community', axis=1)
     df = df.merge(local_roles_df, on='node', how='left')
     df = df.merge(global_roles_df, on='node', how='left')
 
     df.to_csv('../../data/processed/node_data.csv')
     edge_df.to_csv('../../data/processed/edge_data.csv')
-
-    global_recs.to_csv('../../data/processed/global_recs.csv')
-    local_recs.to_csv('../../data/processed/local_recs.csv')
 
     return
