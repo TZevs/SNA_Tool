@@ -4,7 +4,7 @@ import dash_bootstrap_components as dbc
 from components.cards import role_cards
 from components.tables import metrics_table
 from components.charts import role_bar_chart, community_graph
-from loaders import load_global_data, load_community_data, load_community_ids
+from loaders import load_global_data, load_community_data, load_community_ids, load_local_recs
 
 GLOBAL_DATA = load_global_data()
 
@@ -25,6 +25,15 @@ def set_global_store(data):
 def set_community_ids(data):
     if data is None:
         return load_community_ids()
+    return data
+
+@callback(
+    Output("local-recs-store", "data"),
+    Input("local-recs-store", "data")
+)
+def set_local_recs(data):
+    if data is None:
+        return load_local_recs()
     return data
 
 # ---------------------------------------------------------------
@@ -168,33 +177,31 @@ def render_community_graph(comm_id, store):
 @callback(
     Output("node-info", "children"),
     Input("community-cyto", "tapNode"),
-    State("community-store", "data"),
-    State("community-dropdown", "value"),
 )
-def show_local_node_info(node, store, comm_id):
+def show_local_node_info(node):
     if not node:
         return html.P("Click a node to see details")
-
-    node_id = node['data']['id']
-
-    recs_container = store[comm_id]["recs"]
-    recs_list = recs_container.get("recs", [])
-
-    rec = next((r for r in recs_list if str(r['node']) == node_id), None)
 
     d = node['data']
 
     return html.Div([
-        html.H6(f"Node {node_id}"),
+        html.H6(f"Node {d.get('id')}"),
         html.P(f"Role: {d.get('local_role')}"),
         html.P(f"Z-Score: {d.get('local_zscore')}"),
         html.P(f"Participation Coefficient: {d.get('local_P')}"),
         html.P(f"Betweenness: {d.get('betweenness')}"),
         html.P(f"Closeness: {d.get('local_closeness')}"),
-        html.Div([
-            html.P(f"{d.get('local_role')} Recommendations:"),
-            html.P(f"Reason: {rec['reason'] if rec else 'N/A'}"),
-            html.P(f"Meaning: {rec['meaning'] if rec else 'N/A'}"),
-            html.P(f"Target: {rec['target'] if rec else 'N/A'}"),
-        ])
     ])
+
+@callback(
+    Output("local-recs", "children"),
+    Input("local-recs-store", "data")
+)
+def render_global_recs(data):
+    if not data:
+        return html.P("No Local data available")
+
+    recs = data['recs']
+    print(recs)
+
+    return role_cards(recs)

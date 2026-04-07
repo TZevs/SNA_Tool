@@ -43,11 +43,15 @@ def load_community_data(comm_id):
         "edges": edges,
         "metrics": cleaned_metrics,
         "local_roles": local_roles,
-        "recs": fetch_community_recs(comm_id),
     }
 
 def load_community_ids():
     ids = fetch_community_ids()
     return {
         "ids": ids['comm_ids'],
+    }
+
+def load_local_recs():
+    return {
+        "recs": fetch_community_recs()["recs"]
     }

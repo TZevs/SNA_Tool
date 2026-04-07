@@ -20,6 +20,16 @@ def get_community_ids():
         "comm_ids": ids
     }
 
+@router.get("/recs")
+def get_local_recs():
+    if recs.empty:
+        return {"status": "missing data", "message": "data upload required"}
+
+    return {
+        "status": "success",
+        "recs": recs.to_dict(orient="records")
+    }
+
 @router.get("/{comm_id}")
 def get_community(comm_id):
     if nodes.empty or edges.empty:
@@ -53,17 +63,4 @@ def get_metrics(comm_id):
     return {
         "status": "success",
         "nodes": metrics
-    }
-
-@router.get("/recs/{comm_id}")
-def get_local_recs(comm_id):
-    if recs.empty:
-        return {"status": "missing data", "message": "data upload required"}
-
-    df = recs.loc[nodes['community'] == comm_id]
-    recomms = df.replace({np.nan: None}).astype(object).to_dict(orient="records")
-
-    return {
-        "status": "success",
-        "recs": recomms
     }

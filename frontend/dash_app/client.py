@@ -33,8 +33,8 @@ def fetch_community_metrics(comm_id):
     except Exception as ex:
         return {"status": "error", "message": str(ex)}
 
-def fetch_community_recs(comm_id):
+def fetch_community_recs():
     try:
-        return requests.get(f'{backend_url}/community/recs/{comm_id}').json()
+        return requests.get(f'{backend_url}/community/recs').json()
     except Exception as ex:
         return {"status": "error", "message": str(ex)}

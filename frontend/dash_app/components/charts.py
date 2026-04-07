@@ -64,14 +64,15 @@ def community_graph(data):
         elements=elements,
         style={"width": "100%", "height": "600px"},
         layout={
-            "name": "cose",
-            "idealEdgeLength": 100
+            "name": "grid",
+            "avoidOverlap": True,
+            "avoidOverlapPadding": 8,
         },
         minZoom=0.2,
         stylesheet=[
             {
                 "selector": "node:selected",
-                "style": {"backgroundColor": "yellow"}
+                "style": {"color": "yellow"}
             },
             {
                 "selector": "node",

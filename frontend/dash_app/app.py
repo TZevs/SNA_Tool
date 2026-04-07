@@ -11,6 +11,7 @@ stores = html.Div([
     dcc.Store(id='global-store'),
     dcc.Store(id='community-id-store'),
     dcc.Store(id='community-store', data={}),
+    dcc.Store(id='local-recs-store'),
 ])
 
 # ── Global (left) column ──────────────────────────────────────────────────────
@@ -63,6 +64,11 @@ community_col = dbc.Col([
     dbc.Card(dbc.CardBody([
         html.H5("Role Distribution"),
         html.Div(id="community-roles-chart"),
+    ]), class_name="mb-3"),
+
+    dbc.Card(dbc.CardBody([
+        html.H5("Recommendations"),
+        html.Div(id="local-recs"),
     ]), class_name="mb-3"),
 
 ], xs=12, lg=6)
