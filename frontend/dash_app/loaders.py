@@ -1,4 +1,7 @@
-from client import fetch_global_metrics, fetch_global_recs, fetch_community_ids, fetch_community_nodes, fetch_community_metrics, fetch_community_recs
+from client import (fetch_global_metrics, fetch_global_recs,
+                    fetch_community_ids, fetch_community_nodes,
+                    fetch_community_metrics, fetch_community_recs,
+                    fetch_community_stats, fetch_global_stats)
 
 def load_global_data():
     metrics = fetch_global_metrics()
@@ -6,7 +9,7 @@ def load_global_data():
 
     global_roles = [node['global_role'] for node in nodes]
 
-    rec_lookup = {
+    rec_dict = {
         item["role"]: {
             "reason": item["reason"],
             "meaning": item["meaning"],
@@ -18,7 +21,8 @@ def load_global_data():
     return {
         "metrics": metrics['nodes'],
         "global_roles": global_roles,
-        "recs": rec_lookup,
+        "recs": rec_dict,
+        "stats": fetch_global_stats()['stats']
     }
 
 def load_community_data(comm_id):
@@ -67,4 +71,9 @@ def load_local_recs():
     }
     return {
         "recs": rec_lookup,
+    }
+
+def load_local_stats():
+    return {
+        'stats': fetch_community_stats()['stats']
     }
