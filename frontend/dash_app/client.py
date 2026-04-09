@@ -14,6 +14,12 @@ def fetch_global_recs():
     except Exception as ex:
         return {"status": "error", "message": str(ex)}
 
+def fetch_global_stats():
+    try:
+        return requests.get(f'{backend_url}/global/stats').json()
+    except Exception as ex:
+        return {"status": "error", "message": str(ex)}
+
 
 def fetch_community_ids():
     try:
@@ -36,5 +42,11 @@ def fetch_community_metrics(comm_id):
 def fetch_community_recs():
     try:
         return requests.get(f'{backend_url}/community/recs').json()
+    except Exception as ex:
+        return {"status": "error", "message": str(ex)}
+
+def fetch_community_stats():
+    try:
+        return requests.get(f'{backend_url}/community/stats').json()
     except Exception as ex:
         return {"status": "error", "message": str(ex)}
