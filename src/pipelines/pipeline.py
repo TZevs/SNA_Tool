@@ -1,14 +1,17 @@
 from graph.graph_builder import build_graph
 from graph.data_loader import load_data
 
+from pipelines.metric_pipeline import run_global_metrics_pipeline, run_local_metrics_pipeline
 from community.detect import detect_communities
+
+from graph.overview import compute_global_stats
+from community.comm_stats import compute_community_stats
+
+from utils.df_builder import build_metrics_df
 
 from roles.thresholds import get_local_thresholds, compute_global_thresholds
 from roles.roles import assign_global_roles, assign_local_roles
 
-from utils.df_builder import build_metrics_df
-
-from pipelines.metric_pipeline import run_global_metrics_pipeline, run_local_metrics_pipeline
 
 def run_pipeline(file_path='../../data/raw/facebook_combined.txt'):
     edge_df = load_data(file_path)
@@ -16,11 +19,13 @@ def run_pipeline(file_path='../../data/raw/facebook_combined.txt'):
 
     bet, close, deg, eigen, core, truss = run_global_metrics_pipeline(G)
 
-    node_comms, comms = detect_communities(G)
+    node_comms, comms, mod = detect_communities(G)
     l_close, l_core, z_score, part_eff = run_local_metrics_pipeline(G, node_comms, comms)
 
-    df = build_metrics_df(G, node_comms, l_close, l_core, bet, close, deg, eigen, core, truss, z_score,
-                                     part_eff)
+    compute_global_stats(G, mod)
+    compute_community_stats(G, comms)
+
+    df = build_metrics_df(G, node_comms, l_close, l_core, bet, close, deg, eigen, core, truss, z_score, part_eff)
 
     local_thresholds = get_local_thresholds()
     global_thresholds = compute_global_thresholds(df)
@@ -36,3 +41,5 @@ def run_pipeline(file_path='../../data/raw/facebook_combined.txt'):
     edge_df.to_csv('../../data/processed/edge_data.csv')
 
     return
+
+run_pipeline()
