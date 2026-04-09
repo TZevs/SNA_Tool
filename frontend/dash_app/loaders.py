@@ -1,19 +1,24 @@
 from client import fetch_global_metrics, fetch_global_recs, fetch_community_ids, fetch_community_nodes, fetch_community_metrics, fetch_community_recs
 
 def load_global_data():
-    metrics_raw = fetch_global_metrics()
-    nodes = metrics_raw["nodes"].copy()
+    metrics = fetch_global_metrics()
+    nodes = metrics["nodes"].copy()
 
     global_roles = [node['global_role'] for node in nodes]
-    cleaned_metrics = [
-        {k: v for k, v in node.items() if k != 'global_role'}
-        for node in nodes
-    ]
+
+    rec_lookup = {
+        item["role"]: {
+            "reason": item["reason"],
+            "meaning": item["meaning"],
+            "target": item["target"]
+        }
+        for item in fetch_global_recs()["recs"]
+    }
 
     return {
-        "metrics": cleaned_metrics,
+        "metrics": metrics['nodes'],
         "global_roles": global_roles,
-        "recs": fetch_global_recs()["recs"],
+        "recs": rec_lookup,
     }
 
 def load_community_data(comm_id):
@@ -22,7 +27,7 @@ def load_community_data(comm_id):
 
     local_roles = [node['local_role'] for node in metrics]
     cleaned_metrics = [
-        {k: v for k, v in node.items() if k != 'local_role' or k != 'community'}
+        {k: v for k, v in node.items() if k != 'community'}
         for node in metrics
     ]
 
@@ -52,6 +57,14 @@ def load_community_ids():
     }
 
 def load_local_recs():
+    rec_lookup = {
+        item["role"]: {
+            "reason": item["reason"],
+            "meaning": item["meaning"],
+            "target": item["target"]
+        }
+        for item in fetch_community_recs()["recs"]
+    }
     return {
-        "recs": fetch_community_recs()["recs"]
+        "recs": rec_lookup,
     }
