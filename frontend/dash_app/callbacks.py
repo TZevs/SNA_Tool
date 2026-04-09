@@ -55,15 +55,14 @@ def render_global_overview(data):
     ]
 
 @callback(
-    Output("global-metrics-table", "children"),
+    Output("global-metrics", "children"),
     Input("global-store", "data")
 )
 def render_global_metrics(data):
     if not data:
         return html.P("No global data available")
-
     return [
-        metrics_table(data["metrics"])
+        metrics_table(data["metrics"], "global_metrics_table")
     ]
 
 @callback(
@@ -79,16 +78,53 @@ def render_global_roles(data):
     ]
 
 @callback(
-    Output("global-recs", "children"),
-    Input("global-store", "data")
+    Output("global-row-details", "children"),
+    Input("global_metrics_table", "selectedRows"),
+    State("global-store", "data")
 )
-def render_global_recs(data):
-    if not data:
-        return html.P("No global data available")
+def show_global_row_details(selected, store):
+    if not selected:
+        return [
+            html.Br(),
+            html.P("Select a row for further details.")
+        ]
 
-    recs = data['recs']
+    row = selected[0]
+    recs = store['recs']
 
-    return role_cards(recs)
+    if row['global_role'] is None:
+        return [
+            html.Br(),
+            dbc.CardHeader(f'User: {row['node']} does not have a global role assigned.')
+        ]
+
+    return dbc.Card([
+        dbc.CardHeader(f"User: {row['node']}"),
+        dbc.CardBody([
+            html.Div([
+                html.Div([
+                    html.Strong("Role: "),
+                    html.Span(row["global_role"]),
+                    html.Br()
+                ]),
+                dbc.Card([
+                    dbc.CardHeader(f"Recommendations"),
+                    dbc.CardBody([
+                        html.Div([
+                            html.Strong("Why Target: "),
+                            html.Span(recs[row['global_role']]['target']),
+                            html.Br(),
+                            html.Strong("Reason: "),
+                            html.Span(recs[row['global_role']]['reason']),
+                            html.Br(),
+                            html.Strong("Meaning: "),
+                            html.Span(recs[row['global_role']]['meaning']),
+                        ]),
+                    ])
+                ])
+            ], style={"lineHeight": "1.8"})
+        ])
+    ], style={"marginTop": "10px"})
 
 # ---------------------------------------------------------------
 # Community/Local Column Cards
@@ -120,7 +156,7 @@ def update_community_cache(comm_id, store):
     return store
 
 @callback(
-    Output("community-metrics-table", "children"),
+    Output("community-metrics", "children"),
     Input("community-dropdown", "value"),
     Input("community-store", "data")
 )
@@ -132,9 +168,8 @@ def render_community_metrics(comm_id, store):
         return "Loading..."
 
     data = store[comm_id]
-
     return [
-        metrics_table(data["metrics"])
+        metrics_table(data["metrics"], "community_metrics_table")
     ]
 
 @callback(
@@ -194,14 +229,50 @@ def show_local_node_info(node):
     ])
 
 @callback(
-    Output("local-recs", "children"),
-    Input("local-recs-store", "data")
+    Output("community-row-details", "children"),
+    Input("community_metrics_table", "selectedRows"),
+    State("local-recs-store", "data"),
 )
-def render_global_recs(data):
-    if not data:
-        return html.P("No Local data available")
+def show_local_row_details(selected, store):
+    if not selected:
+        return [
+            html.Br(),
+            html.P("Select a row for further details.")
+        ]
 
-    recs = data['recs']
-    print(recs)
+    row = selected[0]
+    recs = store['recs']
 
-    return role_cards(recs)
+    if row['local_role'] is None:
+        return [
+            html.Br(),
+            dbc.CardHeader(f'User: {row['node']} does not have a local role assigned.')
+        ]
+
+    return dbc.Card([
+        dbc.CardHeader(f"User: {row['node']}"),
+        dbc.CardBody([
+            html.Div([
+                html.Div([
+                    html.Strong("Role: "),
+                    html.Span(row["local_role"]),
+                    html.Br()
+                ]),
+                dbc.Card([
+                    dbc.CardHeader(f"Recommendations"),
+                    dbc.CardBody([
+                        html.Div([
+                            html.Strong("Why Target: "),
+                            html.Span(recs[row['local_role']]['target']),
+                            html.Br(),
+                            html.Strong("Reason: "),
+                            html.Span(recs[row['local_role']]['reason']),
+                            html.Br(),
+                            html.Strong("Meaning: "),
+                            html.Span(recs[row['local_role']]['meaning']),
+                        ]),
+                    ])
+                ])
+            ], style={"lineHeight": "1.8"})
+        ])
+    ], style={"marginTop": "10px"})
