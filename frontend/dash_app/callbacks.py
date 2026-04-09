@@ -1,10 +1,9 @@
 from dash import Input, Output, callback, html, State, no_update
 import dash_bootstrap_components as dbc
 
-from components.cards import role_cards
 from components.tables import metrics_table
 from components.charts import role_bar_chart, community_graph
-from loaders import load_global_data, load_community_data, load_community_ids, load_local_recs
+from loaders import load_global_data, load_community_data, load_community_ids, load_local_recs, load_local_stats
 
 GLOBAL_DATA = load_global_data()
 
@@ -34,6 +33,15 @@ def set_community_ids(data):
 def set_local_recs(data):
     if data is None:
         return load_local_recs()
+    return data
+
+@callback(
+    Output("local-stats-store", "data"),
+    Input("local-stats-store", "data"),
+)
+def set_local_stats(data):
+    if data is None:
+        return load_local_stats()
     return data
 
 # ---------------------------------------------------------------
