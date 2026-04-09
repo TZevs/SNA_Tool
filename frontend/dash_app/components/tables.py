@@ -1,8 +1,10 @@
 import dash_ag_grid as dag
 
-def metrics_table(data):
+def metrics_table(data, table_id):
     if not data:
         return "No metrics available"
+
+    hidden_cols = {"global_role", "local_role"}
 
     column_defs = [
         {
@@ -13,10 +15,11 @@ def metrics_table(data):
             "resizable": True,
         }
         for col in data[0].keys()
+        if col not in hidden_cols
     ]
 
     return dag.AgGrid(
-        id="metrics-grid",
+        id=table_id,
         rowData=data,
         columnDefs=column_defs,
         defaultColDef={
@@ -35,5 +38,6 @@ def metrics_table(data):
         dashGridOptions={
             "pagination": True,
             "paginationPageSize": 10,
+            "rowSelection": {'mode': 'singleRow'}
         },
     )
