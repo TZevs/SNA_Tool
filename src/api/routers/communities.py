@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 import numpy as np
 from src.utils.file_loader import load_csv
+import json
 
 router = APIRouter(prefix="/community")
 
@@ -28,6 +29,16 @@ def get_local_recs():
     return {
         "status": "success",
         "recs": recs.to_dict(orient="records")
+    }
+
+@router.get("/stats")
+def get_stats():
+    with open("../../data/processed/community_stats.json", "r") as jsonfile:
+        stats = json.load(jsonfile)
+
+    return {
+        "status": "success",
+        "stats": stats,
     }
 
 @router.get("/{comm_id}")
@@ -64,3 +75,4 @@ def get_metrics(comm_id):
         "status": "success",
         "nodes": metrics
     }
+

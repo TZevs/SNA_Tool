@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from src.utils.file_loader import load_csv
 import numpy as np
+import json
 
 router = APIRouter(prefix="/global")
 
@@ -27,4 +28,14 @@ def get_global_recs():
     return {
         "status": "success",
         "recs": recs.to_dict(orient="records")
+    }
+
+@router.get("/stats")
+def get_global_stats():
+    with open("../../data/processed/global_stats.json", "r") as jsonfile:
+        stats = json.load(jsonfile)
+
+    return {
+        "status": "success",
+        "stats": stats,
     }
