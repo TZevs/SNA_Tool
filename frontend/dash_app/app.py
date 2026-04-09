@@ -12,6 +12,7 @@ stores = html.Div([
     dcc.Store(id='community-id-store'),
     dcc.Store(id='community-store', data={}),
     dcc.Store(id='local-recs-store'),
+    dcc.Store(id='local-stats-store')
 ])
 
 # ── Global (left) column ──────────────────────────────────────────────────────
