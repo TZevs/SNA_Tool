@@ -26,17 +26,13 @@ global_col = dbc.Col([
 
     dbc.Card(dbc.CardBody([
         html.H5("Metrics Table"),
-        html.Div(id="global-metrics-table"),
+        html.Div(id="global-metrics"),
+        html.Div(id='global-row-details'),
     ]), class_name="mb-3"),
 
     dbc.Card(dbc.CardBody([
         html.H5("Role Distribution"),
         html.Div(id="global-roles-chart"),
-    ]), class_name="mb-3"),
-
-    dbc.Card(dbc.CardBody([
-        html.H5("Recommendations"),
-        html.Div(id="global-recs"),
     ]), class_name="mb-3"),
 
 ], xs=12, lg=6)
@@ -58,17 +54,13 @@ community_col = dbc.Col([
 
     dbc.Card(dbc.CardBody([
         html.H5("Metrics Table"),
-        html.Div(id="community-metrics-table"),
+        html.Div(id="community-metrics"),
+        html.Div(id='community-row-details'),
     ]), class_name="mb-3"),
 
     dbc.Card(dbc.CardBody([
         html.H5("Role Distribution"),
         html.Div(id="community-roles-chart"),
-    ]), class_name="mb-3"),
-
-    dbc.Card(dbc.CardBody([
-        html.H5("Recommendations"),
-        html.Div(id="local-recs"),
     ]), class_name="mb-3"),
 
 ], xs=12, lg=6)
