@@ -20,24 +20,17 @@ def metrics_table(data, table_id):
 
     return dag.AgGrid(
         id=table_id,
+        className="ag-theme-quartz-dark",
         rowData=data,
         columnDefs=column_defs,
         defaultColDef={
-            "flex": 1,
-            "minWidth": 120,
-            "cellStyle": {
-                "backgroundColor": "rgb(50, 50, 50)",
-                "color": "white",
-                "fontSize": "14px",
-                "padding": "6px",
-                "textAlign": "left",
-            },
+            "minWidth": 100,
         },
-        className="ag-theme-alpine-dark",
         style={"height": "400px", "width": "100%"},
         dashGridOptions={
+            "theme": "legacy",
             "pagination": True,
-            "paginationPageSize": 10,
-            "rowSelection": {'mode': 'singleRow'}
+            "paginationPageSize": 20,
+            "rowSelection": {'mode': 'singleRow'},
         },
     )
