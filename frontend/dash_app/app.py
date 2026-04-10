@@ -3,7 +3,16 @@ import dash_bootstrap_components as dbc
 
 from callbacks import *
 
-app = Dash(__name__, external_stylesheets=[dbc.themes.DARKLY], suppress_callback_exceptions=True)
+app = Dash(
+    __name__,
+    external_stylesheets=[
+        dbc.themes.DARKLY,
+        "https://cdn.jsdelivr.net/npm/ag-grid-community@32.3.3/styles/ag-grid.css",
+        "https://cdn.jsdelivr.net/npm/ag-grid-community@32.3.3/styles/ag-theme-quartz.css",
+        "https://cdn.jsdelivr.net/npm/ag-grid-community@32.3.3/styles/ag-theme-quartz-dark.css",
+    ],
+    suppress_callback_exceptions=True
+)
 server = app.server
 
 # ── Stores ────────────────────────────────────────────────────────────────────
