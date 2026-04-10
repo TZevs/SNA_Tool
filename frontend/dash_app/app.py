@@ -49,6 +49,11 @@ community_col = dbc.Col([
     ]), class_name="mb-3"),
 
     dbc.Card(dbc.CardBody([
+        html.H5("Overview"),
+        html.Div(id="community-overview"),
+    ]), class_name="mb-3"),
+
+    dbc.Card(dbc.CardBody([
         html.H5("Community Graph"),
         html.Div(id="community-graph"),
     ]), class_name="mb-3"),
