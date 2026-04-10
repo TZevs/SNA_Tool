@@ -3,6 +3,7 @@ import dash_bootstrap_components as dbc
 
 from components.tables import metrics_table
 from components.charts import role_bar_chart, community_graph
+from components.overview import overview_cards
 from loaders import load_global_data, load_community_data, load_community_ids, load_local_recs, load_local_stats
 
 GLOBAL_DATA = load_global_data()
@@ -55,12 +56,7 @@ def render_global_overview(data):
     if not data:
         return html.P("No global data available")
 
-    nodes = [n["node"] for n in data["metrics"]]
-    deg = [d["degree"] for d in data["metrics"]]
-
-    return [
-        html.P(f"Number of Users: {len(nodes)}")
-    ]
+    return overview_cards(data['stats'], 'global-overview-content')
 
 @callback(
     Output("global-metrics", "children"),
@@ -228,7 +224,7 @@ def show_local_node_info(node):
     d = node['data']
 
     return html.Div([
-        html.H6(f"Node {d.get('id')}"),
+        html.H6(f"User {d.get('id')}"),
         html.P(f"Role: {d.get('local_role')}"),
         html.P(f"Z-Score: {d.get('local_zscore')}"),
         html.P(f"Participation Coefficient: {d.get('local_P')}"),
@@ -284,3 +280,19 @@ def show_local_row_details(selected, store):
             ], style={"lineHeight": "1.8"})
         ])
     ], style={"marginTop": "10px"})
+
+@callback(
+    Output("community-overview", "children"),
+    Input("local-stats-store", "data"),
+    Input("community-dropdown", "value")
+)
+def render_global_overview(data, comm_id):
+    if not comm_id:
+        return html.P("Select a Community")
+
+    if not data:
+        return html.P("No local data available")
+
+    stats = data['stats']
+
+    return overview_cards(stats[comm_id], 'local-overview-content')
