@@ -3,6 +3,24 @@ import plotly.express as px
 from dash import dcc, html
 import dash_cytoscape as cyto
 
+global_palette = {
+    "Global Peripheral": "#0d6efd",
+    "Global Core": "#00d4ff",
+    "Global Spreader": "#2ecc71",
+    "Global Hub": "#f1c40f",
+    "Global Broker": "#e83e8c"
+}
+
+local_palette = {
+    "Local Ultra-Peripheral": "#20c997",
+    "Local Peripheral": "#6f42c1",
+    "Local Connector": "#ff6b6b",
+    "Local Kinless": "#4dabf7",
+    "Local Provincial Hub": "#3ddc97",
+    "Local Connector Hub": "#fd7e14",
+    "Local Kinless Hub": "#adb5bd",
+}
+
 # Role bar chart
 def role_bar_chart(data, type):
     if not data:
@@ -14,11 +32,14 @@ def role_bar_chart(data, type):
     if not roles:
         return html.P("No role field found")
 
+    palette = global_palette if type == "global_role" else local_palette
+
     fig = px.histogram(
         x=roles,
         color=roles,
         labels={"x": f'{type}', "count": "Count"},
-        template="plotly_dark"
+        template="plotly_dark",
+        color_discrete_map=palette,
     )
 
     fig.update_layout(
@@ -27,17 +48,6 @@ def role_bar_chart(data, type):
         height=300
     )
     return dcc.Graph(figure=fig)
-
-palette = px.colors.qualitative.Set3
-LOCAL_ROLE_COLOURS = {
-    "Local Ultra-Peripheral": palette[0],
-    "Local Peripheral": palette[7],
-    "Local Connector": palette[2],
-    "Local Kinless": palette[3],
-    "Local Provincial Hub": palette[4],
-    "Local Connector Hub": palette[5],
-    "Local Kinless Hub": palette[6],
-}
 
 def community_graph(data):
     # Lookup metrics by id
@@ -62,17 +72,18 @@ def community_graph(data):
     return cyto.Cytoscape(
         id="community-cyto",
         elements=elements,
-        style={"width": "100%", "height": "600px"},
         layout={
-            "name": "grid",
+            "name": "cose",
             "avoidOverlap": True,
-            "avoidOverlapPadding": 8,
+            "avoidOverlapPadding": 5,
+            "idealEdgeLength": 120,
+            "nodeRepulsion": 500000,
+            "gravity": 80
         },
-        minZoom=0.2,
         stylesheet=[
             {
                 "selector": "node:selected",
-                "style": {"color": "yellow"}
+                "style": {"background-color": "yellow"}
             },
             {
                 "selector": "node",
@@ -81,11 +92,14 @@ def community_graph(data):
             *[
                 {
                     "selector": f'[local_role = "{role}"]',
-                    "style": {"backgroundColor": colour}
+                    "style": {"background-color": colour}
                 }
-                for role, colour in LOCAL_ROLE_COLOURS.items()
+                for role, colour in local_palette.items()
             ]
-        ]
+        ],
+        style={"width": "100%", "height": "600px"},
+        minZoom=0.2,
+
     )
 
 
