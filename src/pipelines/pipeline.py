@@ -12,6 +12,7 @@ from utils.df_builder import build_metrics_df
 from roles.thresholds import get_local_thresholds, compute_global_thresholds
 from roles.roles import assign_global_roles, assign_local_roles
 
+from evaluation.evaluate import evaluate_rank_correlations
 
 def run_pipeline(file_path='../../data/raw/facebook_combined.txt'):
     edge_df = load_data(file_path)
@@ -22,6 +23,7 @@ def run_pipeline(file_path='../../data/raw/facebook_combined.txt'):
     node_comms, comms, mod = detect_communities(G)
     l_close, l_core, z_score, part_eff = run_local_metrics_pipeline(G, node_comms, comms)
 
+    # Calculating network stats for global and communities, saved as JSON to persistent storage in the data directory
     compute_global_stats(G, mod)
     compute_community_stats(G, comms)
 
@@ -37,8 +39,12 @@ def run_pipeline(file_path='../../data/raw/facebook_combined.txt'):
     df = df.merge(local_roles_df, on='node', how='left')
     df = df.merge(global_roles_df, on='node', how='left')
 
-    df.to_csv('../../data/processed/node_data.csv')
-    edge_df.to_csv('../../data/processed/edge_data.csv')
+    df.to_csv('../../data/processed/node_data.csv', index=False)
+
+    eval_df = evaluate_rank_correlations()
+
+    eval_df.to_csv('../../data/processed/rank_corr_eval.csv', index=False)
+    edge_df.to_csv('../../data/processed/edge_data.csv', index=False)
 
     return
 
