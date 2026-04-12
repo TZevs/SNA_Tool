@@ -50,3 +50,10 @@ def fetch_community_stats():
         return requests.get(f'{backend_url}/community/stats').json()
     except Exception as ex:
         return {"status": "error", "message": str(ex)}
+
+
+def fetch_evals():
+    try:
+        return requests.get(f'{backend_url}/evals').json()
+    except Exception as ex:
+        return {"status": "error", "message": str(ex)}
