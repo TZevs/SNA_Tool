@@ -46,6 +46,13 @@ global_col = dbc.Col([
         html.Div(id="global-roles-chart"),
     ]), class_name="mb-3"),
 
+    html.Hr(),
+    html.H3('Evaluation'),
+    dbc.Card(dbc.CardBody([
+        html.H5(""),
+        html.Div(id="evaluation-overview"),
+    ]), class_name="mb-3"),
+
 ], xs=12, lg=6)
 
 # ── Community (right) column ──────────────────────────────────────────────────
@@ -85,7 +92,7 @@ community_col = dbc.Col([
 app.layout = dbc.Container([
     stores,
     html.Br(),
-    html.H2("Social Network Analysis", className="text-center"),
+    html.H2("Network & Influence Analysis", className="text-center"),
     html.Hr(),
     dbc.Row([global_col, community_col]),
 ], fluid=True)
