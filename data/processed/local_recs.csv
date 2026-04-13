@@ -1,7 +1,8 @@
-,role,reason,meaning,target
-0,Local Provincial Hub,Has many connections within the community.,"Acts as a local leader or anchor, a central user in the community.",To coordinate the community.
-1,Local Connector Hub,Has many connections and connects several sub-groups within the community.,Works like an internal bridge between the community sub-groups.,To improve the community's internal communication and information flow.
-2,Local Kinless Hub,Has many connections to several communities outside of community.,Acts as a hub across the connected communities.,To improve cross-community connections and communication for better information flow.
-3,Local Peripheral,Has few internal connections and limited engagement within the community.,Is locally isolated within the community.,To support local inclusion and re-engagement.
-4,Local Connector,Links to different parts of the community.,Acts as a local bridge that provides internal connections for better information flow.,To improve internal information flow efficiency for the community.
-5,Local Kinless,Has weak internal links but has many cross-community connections.,An outsider in the community but can reach many other communities.,To build stronger links and bridges to other communities.
+role,reason,meaning,target
+Local Provincial Hub,Has many connections within the community.,"Acts as a local leader or anchor, a central user in the community.",To coordinate the community.
+Local Connector Hub,Has many connections and connects several sub-groups within the community.,Works like an internal bridge between the community sub-groups.,To improve the community's internal communication and information flow.
+Local Kinless Hub,Has many connections to several communities outside of community.,Acts as a hub across the connected communities.,To improve cross-community connections and communication for better information flow.
+Local Peripheral,Has few internal connections and limited engagement within the community.,Is locally isolated within the community.,To support local inclusion and re-engagement.
+Local Ultra-Peripheral,Has very few internal connections and little to no engagement within the community.,Is locally isolated within the community.,To support local inclusion and re-engagement.
+Local Connector,Links to different parts of the community.,Acts as a local bridge that provides internal connections for better information flow.,To improve internal information flow efficiency for the community.
+Local Kinless,Has weak internal links but has many cross-community connections.,An outsider in the community but can reach many other communities.,To build stronger links and bridges to other communities.
