@@ -23,6 +23,11 @@ def recommend_local_roles():
         'meaning': 'Is locally isolated within the community.',
         'target': 'To support local inclusion and re-engagement.'
     }
+    local_recs['Local Ultra-Peripheral'] = {
+        'reason': 'Has very few internal connections and little to no engagement within the community.',
+        'meaning': 'Is locally isolated within the community.',
+        'target': 'To support local inclusion and re-engagement.'
+    }
     local_recs['Local Connector'] = {
         'reason': 'Links to different parts of the community.',
         'meaning': 'Acts as a local bridge that provides internal connections for better information flow.',
