@@ -108,11 +108,11 @@ def show_global_row_details(selected, store):
     if row['global_role'] is None:
         return [
             html.Br(),
-            dbc.CardHeader(f'User: {row['node']} does not have a global role assigned.')
+            dbc.CardHeader(f'Node: {row['node']} does not have a global role assigned.')
         ]
 
     return dbc.Card([
-        dbc.CardHeader(f"User: {row['node']}"),
+        dbc.CardHeader(f"Node: {row['node']}"),
         dbc.CardBody([
             html.Div([
                 html.Div([
@@ -233,7 +233,7 @@ def show_local_node_info(node):
     d = node['data']
 
     return html.Div([
-        html.H6(f"User {d.get('id')}"),
+        html.H6(f"Node: {d.get('id')}"),
         html.P(f"Role: {d.get('local_role')}"),
         html.P(f"Z-Score: {d.get('local_zscore')}"),
         html.P(f"Participation Coefficient: {d.get('local_P')}"),
@@ -259,11 +259,11 @@ def show_local_row_details(selected, store):
     if row['local_role'] is None:
         return [
             html.Br(),
-            dbc.CardHeader(f'User: {row['node']} does not have a local role assigned.')
+            dbc.CardHeader(f'Node: {row['node']} does not have a local role assigned.')
         ]
 
     return dbc.Card([
-        dbc.CardHeader(f"User: {row['node']}"),
+        dbc.CardHeader(f"Node: {row['node']}"),
         dbc.CardBody([
             html.Div([
                 html.Div([
