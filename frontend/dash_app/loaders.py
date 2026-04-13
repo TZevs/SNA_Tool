@@ -62,14 +62,8 @@ def load_community_ids():
     }
 
 def load_local_recs():
-    rec_lookup = {
-        item["role"]: {
-            "reason": item["reason"],
-            "meaning": item["meaning"],
-            "target": item["target"]
-        }
-        for item in fetch_community_recs()["recs"]
-    }
+    data = fetch_community_recs()['recs']
+    rec_lookup = {item['role']: item for item in data}
     return {
         "recs": rec_lookup,
     }
