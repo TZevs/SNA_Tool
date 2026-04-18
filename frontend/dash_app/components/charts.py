@@ -38,15 +38,18 @@ def role_bar_chart(data, type):
     fig = px.histogram(
         x=roles,
         color=roles,
-        labels={"x": f'{type}', "count": "Count"},
-        template="plotly_dark",
+        #labels={"x": f'{type}', "count": "Count"},
+        #template="plotly_dark",
         color_discrete_map=palette,
     )
 
     fig.update_layout(
         showlegend=False,
         margin=dict(l=20, r=20, t=40, b=20),
-        height=300
+        height=300,
+        title=f'Role Distribution ({type}s)',
+        xaxis_title="Global Roles" if type == "global_role" else "Local Roles",
+        yaxis_title='Count',
     )
     return dcc.Graph(figure=fig)
 
@@ -112,15 +115,35 @@ def global_degree_hist(data):
         color='community',
         barmode="overlay",
         opacity=0.65,
+        height=400,
         color_discrete_sequence=px.colors.qualitative.Prism,
     )
     fig.update_layout(
-        title='Normalised Degree Distribution By Community',
+        title='Normalised Degree Distribution',
         xaxis_title='Normalised Degree (0-1)',
         yaxis_title='Count',
         legend_title='Community',
     )
     fig.update_xaxes(range=[0, 0.1])
     
+    return dcc.Graph(figure=fig)
+
+
+def global_degree_hist_without_comm(data):
+    df = pd.DataFrame(data)
+
+    fig = px.histogram(
+        df,
+        x='degree',
+        color_discrete_sequence=px.colors.qualitative.Prism,
+        height=400,
+    )
+    fig.update_layout(
+        title='Normalised Degree Distribution By Community',
+        xaxis_title='Normalised Degree (0-1)',
+        yaxis_title='Count',
+    )
+    fig.update_xaxes(range=[0, 0.1])
+
     return dcc.Graph(figure=fig)
 
