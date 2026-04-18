@@ -2,7 +2,7 @@ from dash import Input, Output, callback, html, State
 import dash_bootstrap_components as dbc
 
 from components.tables import metrics_table
-from components.charts import role_bar_chart, community_graph, global_degree_hist
+from components.charts import role_bar_chart, community_graph, global_degree_hist, global_degree_hist_without_comm
 from components.overview import overview_cards
 from loaders import load_global_data, load_community_data, load_community_ids, load_local_recs, load_local_stats, load_evals
 
@@ -74,6 +74,9 @@ def render_global_overview(data):
 def render_global_metrics(data):
     if not data:
         return html.P("No global data available")
+
+
+
     return [
         metrics_table(data["metrics"], "global_metrics_table")
     ]
@@ -149,7 +152,11 @@ def render_degree_dist(data):
 
     df = data['metrics']
 
-    return global_degree_hist(df)
+    return [
+        global_degree_hist(df),
+        html.Br(),
+        global_degree_hist_without_comm(df)
+    ]
 
 # ---------------------------------------------------------------
 # Community/Local Column Cards
@@ -244,13 +251,26 @@ def show_local_node_info(node):
 
     d = node['data']
 
-    return html.Div([
-        html.H6(f"Node: {d.get('id')}"),
-        html.P(f"Role: {d.get('local_role')}"),
-        html.P(f"Z-Score: {d.get('local_zscore')}"),
-        html.P(f"Participation Coefficient: {d.get('local_P')}"),
-        html.P(f"Betweenness: {d.get('betweenness')}"),
-        html.P(f"Closeness: {d.get('local_closeness')}"),
+    return dbc.Card([
+        dbc.CardHeader(f'Node: {d.get('id')}'),
+        dbc.CardBody([
+            html.Div([
+                html.Strong(f"Role: "),
+                html.Span(d.get('role', 'No Role Assigned')),
+                html.Br(),
+                html.Strong(f"Z-Score: "),
+                html.Span(d.get('local_zscore')),
+                html.Br(),
+                html.Strong(f"Participation Coefficient: "),
+                html.Span(d.get('local_P')),
+                html.Br(),
+                html.Strong(f"Betweenness: "),
+                html.Span(d.get('local_betweenness')),
+                html.Br(),
+                html.Strong(f"Closeness: "),
+                html.Span(d.get('local_closeness')),
+            ])
+        ])
     ])
 
 @callback(
