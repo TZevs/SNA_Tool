@@ -47,10 +47,10 @@ global_col = dbc.Col([
     ]), class_name="mb-3"),
 
     html.Hr(),
-    html.H3('Evaluation'),
+    html.H3('Data Visualisations'),
     dbc.Card(dbc.CardBody([
-        html.H5(""),
-        html.Div(id="evaluation-overview"),
+        html.H5("Histogram"),
+        html.Div(id="degree-dist"),
     ]), class_name="mb-3"),
 
 ], xs=12, lg=6)

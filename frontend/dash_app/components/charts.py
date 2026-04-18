@@ -2,6 +2,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from dash import dcc, html
 import dash_cytoscape as cyto
+import pandas as pd
 
 global_palette = {
     "Global Peripheral": "#0d6efd",
@@ -102,5 +103,24 @@ def community_graph(data):
 
     )
 
+def global_degree_hist(data):
+    df = pd.DataFrame(data)
 
+    fig = px.histogram(
+        df,
+        x='degree',
+        color='community',
+        barmode="overlay",
+        opacity=0.65,
+        color_discrete_sequence=px.colors.qualitative.Prism,
+    )
+    fig.update_layout(
+        title='Normalised Degree Distribution By Community',
+        xaxis_title='Normalised Degree (0-1)',
+        yaxis_title='Count',
+        legend_title='Community',
+    )
+    fig.update_xaxes(range=[0, 0.1])
+    
+    return dcc.Graph(figure=fig)
 

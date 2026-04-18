@@ -2,7 +2,7 @@ from dash import Input, Output, callback, html, State
 import dash_bootstrap_components as dbc
 
 from components.tables import metrics_table
-from components.charts import role_bar_chart, community_graph
+from components.charts import role_bar_chart, community_graph, global_degree_hist
 from components.overview import overview_cards
 from loaders import load_global_data, load_community_data, load_community_ids, load_local_recs, load_local_stats, load_evals
 
@@ -138,6 +138,18 @@ def show_global_row_details(selected, store):
             ], style={"lineHeight": "1.8"})
         ])
     ], style={"marginTop": "10px"})
+
+@callback(
+    Output("degree-dist", "children"),
+    Input("global-store", "data")
+)
+def render_degree_dist(data):
+    if not data:
+        return html.P("No global data available")
+
+    df = data['metrics']
+
+    return global_degree_hist(df)
 
 # ---------------------------------------------------------------
 # Community/Local Column Cards

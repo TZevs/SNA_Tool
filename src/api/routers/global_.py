@@ -13,7 +13,7 @@ def get_metrics():
     if node_metrics.empty:
         return {"status": "missing data", "message": "data upload required"}
 
-    metrics_df = node_metrics[['node', 'degree', 'global_closeness', 'global_core_num', 'betweenness', 'eigenvector', 'trussness', 'global_role']]
+    metrics_df = node_metrics[['node', 'degree', 'community', 'global_closeness', 'global_core_num', 'betweenness', 'eigenvector', 'trussness', 'global_role']]
     metrics = metrics_df.replace({np.nan: None}).astype(object).to_dict(orient="records")
 
     return {
