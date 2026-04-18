@@ -41,13 +41,13 @@ global_col = dbc.Col([
         html.Div(id='global-row-details'),
     ]), class_name="mb-3"),
 
+    html.Hr(),
+    html.H3('Data Visualisations'),
     dbc.Card(dbc.CardBody([
-        html.H5("Role Distribution"),
+        html.H5("Bar Plot"),
         html.Div(id="global-roles-chart"),
     ]), class_name="mb-3"),
 
-    html.Hr(),
-    html.H3('Data Visualisations'),
     dbc.Card(dbc.CardBody([
         html.H5("Histogram"),
         html.Div(id="degree-dist"),
@@ -82,7 +82,7 @@ community_col = dbc.Col([
     ]), class_name="mb-3"),
 
     dbc.Card(dbc.CardBody([
-        html.H5("Role Distribution"),
+        html.H5("Bar Plot"),
         html.Div(id="community-roles-chart"),
     ]), class_name="mb-3"),
 
