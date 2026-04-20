@@ -12,8 +12,8 @@ def assign_global_roles(df, thresholds):
 
         # Identifying global_metrics brokers using the global_metrics thresholds boundaries
         if (row.betweenness >= thresholds.loc[0.90, 'betweenness'] and
-            row.global_closeness <= thresholds.loc[0.25, 'global_closeness'] and
-            row.eigenvector <= thresholds.loc[0.25, 'eigenvector'] and
+            row.global_closeness <= thresholds.loc[0.50, 'global_closeness'] and
+            row.eigenvector <= thresholds.loc[0.50, 'eigenvector'] and
             row.degree <= thresholds.loc[0.50, 'degree']
         ):
             global_roles[row.node].append('Global Broker')
@@ -24,7 +24,9 @@ def assign_global_roles(df, thresholds):
         ):
             global_roles[row.node].append('Global Core')
 
-        if thresholds.loc[0.90, 'global_core_num'] >= row.global_core_num >= thresholds.loc[0.75, 'global_core_num']:
+        if (thresholds.loc[0.90, 'global_core_num'] >= row.global_core_num >= thresholds.loc[0.75, 'global_core_num'] and
+            thresholds.loc[0.75, 'eigenvector'] >= row.eigenvector >= thresholds.loc[0.25, 'eigenvector'] and
+            thresholds.loc[0.75, 'degree'] >= row.degree >= thresholds.loc[0.50, 'degree']):
             global_roles[row.node].append('Global Spreader')
 
         if row.global_core_num <= thresholds.loc[0.25, 'global_core_num']:
