@@ -82,7 +82,7 @@ def community_graph(data):
             "avoidOverlapPadding": 5,
             "idealEdgeLength": 120,
             "nodeRepulsion": 500000,
-            "gravity": 80
+            "gravity": 80,
         },
         stylesheet=[
             {
@@ -91,7 +91,11 @@ def community_graph(data):
             },
             {
                 "selector": "node",
-                "style": {"label": "data(id)"}
+                "style": {"content": "data(id)"}
+            },
+            {
+                "selector": "edge",
+                "style": {"line-color": "#777777"}
             },
             *[
                 {
@@ -101,7 +105,7 @@ def community_graph(data):
                 for role, colour in local_palette.items()
             ]
         ],
-        style={"width": "100%", "height": "600px"},
+        style={"width": "100%", "height": "600px", "background-color": "white"},
         minZoom=0.2,
 
     )
@@ -119,7 +123,7 @@ def global_degree_hist(data):
         color_discrete_sequence=px.colors.qualitative.Prism,
     )
     fig.update_layout(
-        title='Normalised Degree Distribution',
+        title='Normalised Degree Distribution By Community',
         xaxis_title='Normalised Degree (0-1)',
         yaxis_title='Count',
         legend_title='Community',
@@ -139,7 +143,7 @@ def global_degree_hist_without_comm(data):
         height=400,
     )
     fig.update_layout(
-        title='Normalised Degree Distribution By Community',
+        title='Normalised Degree Distribution',
         xaxis_title='Normalised Degree (0-1)',
         yaxis_title='Count',
     )
