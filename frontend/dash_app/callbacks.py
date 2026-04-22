@@ -238,7 +238,8 @@ def render_community_graph(comm_id, store):
 
     return html.Div([
         community_graph(data),
-        html.Div(id="node-info")
+        html.Div(id="node-info"),
+        html.Br()
     ])
 
 @callback(
