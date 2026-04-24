@@ -91,7 +91,7 @@ community_col = dbc.Col([
 app.layout = dbc.Container([
     stores,
     html.Br(),
-    html.H2("Network & Influence Analysis", className="text-center"),
+    html.H2("Social Network & Influence Analysis", className="text-center"),
     html.Hr(),
     dbc.Row([global_col, community_col]),
 ], fluid=True)
