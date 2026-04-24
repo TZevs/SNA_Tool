@@ -1,4 +1,3 @@
-import plotly.graph_objects as go
 import plotly.express as px
 from dash import dcc, html
 import dash_cytoscape as cyto
