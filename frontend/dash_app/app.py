@@ -22,7 +22,6 @@ stores = html.Div([
     dcc.Store(id='community-store', data={}),
     dcc.Store(id='local-recs-store'),
     dcc.Store(id='local-stats-store'),
-    dcc.Store(id='evaluation-store')
 ])
 
 # ── Global (left) column ──────────────────────────────────────────────────────

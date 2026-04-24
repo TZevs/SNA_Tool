@@ -4,7 +4,7 @@ import dash_bootstrap_components as dbc
 from components.tables import metrics_table
 from components.charts import role_bar_chart, community_graph, global_degree_hist, global_degree_hist_without_comm
 from components.overview import overview_cards
-from loaders import load_global_data, load_community_data, load_community_ids, load_local_recs, load_local_stats, load_evals
+from loaders import load_global_data, load_community_data, load_community_ids, load_local_recs, load_local_stats
 
 GLOBAL_DATA = load_global_data()
 
@@ -43,15 +43,6 @@ def set_local_recs(data):
 def set_local_stats(data):
     if data is None:
         return load_local_stats()
-    return data
-
-@callback(
-    Output("evaluation-store", "data"),
-    Input("evaluation-store", "data"),
-)
-def set_evals(data):
-    if data is None:
-        return load_evals()
     return data
 
 # ---------------------------------------------------------------

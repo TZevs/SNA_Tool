@@ -1,8 +1,7 @@
 from client import (fetch_global_metrics, fetch_global_recs,
                     fetch_community_ids, fetch_community_nodes,
                     fetch_community_metrics, fetch_community_recs,
-                    fetch_community_stats, fetch_global_stats,
-                    fetch_evals)
+                    fetch_community_stats, fetch_global_stats)
 
 def load_global_data():
     metrics = fetch_global_metrics()
@@ -71,9 +70,4 @@ def load_local_recs():
 def load_local_stats():
     return {
         'stats': fetch_community_stats()['stats']
-    }
-
-def load_evals():
-    return {
-        "evals": fetch_evals()['evals']
     }
