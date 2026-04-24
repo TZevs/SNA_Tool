@@ -79,23 +79,22 @@ def community_graph(data):
         layout={
             "name": "cose",
             "avoidOverlap": True,
-            "avoidOverlapPadding": 5,
-            "idealEdgeLength": 120,
+            "avoidOverlapPadding": 20,
+            "idealEdgeLength": 200,
             "nodeRepulsion": 500000,
             "gravity": 80,
         },
         stylesheet=[
-            {
-                "selector": "node:selected",
-                "style": {"background-color": "yellow"}
-            },
             {
                 "selector": "node",
                 "style": {"content": "data(id)"}
             },
             {
                 "selector": "edge",
-                "style": {"line-color": "#777777"}
+                'style': {
+                    'width': 0.3,        # ultra‑thin
+                    'line-color': '#999',
+                }
             },
             *[
                 {
