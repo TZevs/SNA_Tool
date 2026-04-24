@@ -255,12 +255,7 @@ def show_local_node_info(node):
                 html.Br(),
                 html.Strong(f"Participation Coefficient: "),
                 html.Span(d.get('local_P')),
-                html.Br(),
-                html.Strong(f"Betweenness: "),
-                html.Span(d.get('local_betweenness')),
-                html.Br(),
-                html.Strong(f"Closeness: "),
-                html.Span(d.get('local_closeness')),
+                html.Br()
             ])
         ])
     ])

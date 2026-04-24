@@ -1,18 +1,20 @@
 import pandas as pd
 
-def build_metrics_df(G, node_comms, l_close, l_core, bet, close, deg, eigen, core, truss, zscore, part_eff):
+def build_metrics_df(G, node_comms, bet, close, deg, eigen, core, truss, zscore, part_eff):
+    # Store Series: row = node, columns = metrics
     rows = []
 
+    # Iterate through nodes in the graph
     for n in G.nodes():
+        # Get comm_id of the community the node is in
         cid = node_comms[n]
 
+        # Append node row
         rows.append({
             'node': n,
             'community': cid,
             'degree': deg[n],
-            'local_closeness': l_close[cid].get(n, 0),
             'global_closeness': close[n],
-            'local_core_num': l_core[cid].get(n, 0),
             'global_core_num': core[n],
             'betweenness': bet[n],
             'eigenvector': eigen[n],
@@ -21,4 +23,5 @@ def build_metrics_df(G, node_comms, l_close, l_core, bet, close, deg, eigen, cor
             'local_P': part_eff[n]
         })
 
+    # Return combined Series as a DF
     return pd.DataFrame(rows)
