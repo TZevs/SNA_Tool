@@ -7,7 +7,7 @@ def compute_global_stats(G, mod):
     num_nodes = G.number_of_nodes()
     num_edges = G.number_of_edges()
     density = nx.density(G)
-    diameter = nx.diameter(G)
+    diameter = nx.approximation.diameter(G)
 
     # Compute within community degree (not z-score)
     degrees = dict(G.degree)

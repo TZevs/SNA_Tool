@@ -20,7 +20,7 @@ def compute_community_stats(G, comms):
         community_stats[cid]['num_nodes'] = sub.number_of_nodes()
         community_stats[cid]['num_edges'] = sub.number_of_edges()
         community_stats[cid]['density'] = nx.density(sub)
-        community_stats[cid]['diameter'] = nx.diameter(sub)
+        community_stats[cid]['diameter'] = nx.approximation.diameter(sub)
 
         # Compute within community degree (not z-score)
         degrees = dict(sub.degree)
