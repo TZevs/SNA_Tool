@@ -1,10 +1,15 @@
 import time
+import networkx as nx
 
 from global_metrics import betweenness, closeness, degree, eigenvector, kcore, ktruss
 from community.metrics import zscore, participation_coeff
 
 # Global metric pipeline
 def run_global_metrics_pipeline(G, verbose=True):
+    # Check G is actually a valid graph
+    if not isinstance(G, nx.Graph):
+        return {}, {}
+
     # Compute global centrality metrics for all nodes (betweenness, closeness, degree, eigenvector)
     bet = betweenness.compute_betweenness(G)
     close = closeness.compute_closeness(G)
@@ -24,6 +29,10 @@ def run_global_metrics_pipeline(G, verbose=True):
     return bet, close, deg, eigen, core, truss, truss_elapsed
 
 def run_local_metrics_pipeline(G, node_comms, comms):
+    # Check G is actually a valid graph
+    if not isinstance(G, nx.Graph):
+        return {}, {}
+
     # Compute local community-aware metrics (within-module degree (z-score), participation coefficient)
     z_score = zscore.compute_local_zscore(G, comms)
     part_eff = participation_coeff.compute_participation_coefficient(G, node_comms)

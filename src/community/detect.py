@@ -3,6 +3,10 @@ import networkx as nx
 def detect_communities(G):
     # Detect communities using the Louvain algorithm
 
+    # Check G is actually a valid graph
+    if not isinstance(G, nx.Graph):
+        return {}, {}
+
     # Returns a list of node sets, each set represents 1 community
     comms_list = nx.community.louvain_communities(G)
 
