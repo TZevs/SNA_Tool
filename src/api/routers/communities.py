@@ -85,6 +85,10 @@ def get_metrics(comm_id):
     # Get nodes with comm_id
     metrics = df.loc[nodes['community'] == comm_id]
 
+    # Round long values to 5 decimal places
+    cols_to_round = ['local_zscore', 'local_P']
+    metrics[cols_to_round] = metrics[cols_to_round].round(5)
+
     # Cleans data to remove numpy values, JSON does not support them
     metrics = metrics.replace({np.nan: None}).astype(object).to_dict(orient="records")
 

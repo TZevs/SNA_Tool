@@ -18,6 +18,10 @@ def get_metrics():
 
     # Select all but the local metrics and roles
     metrics_df = node_metrics[['node', 'degree', 'community', 'global_closeness', 'global_core_num', 'betweenness', 'eigenvector', 'trussness', 'global_role']]
+    # Round long values to 5 decimal places
+    cols_to_round = ['degree', 'global_closeness', 'betweenness', 'eigenvector']
+    metrics_df[cols_to_round] = metrics_df[cols_to_round].round(5)
+
     # Cleans data to remove numpy values, JSON does not support them
     metrics = metrics_df.replace({np.nan: None}).astype(object).to_dict(orient="records")
 
