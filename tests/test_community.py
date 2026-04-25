@@ -53,3 +53,11 @@ def test_communities_single_node_graph():
 
     assert node_comms == {1: 'c0'}
     assert comms_dict == {'c0': [1]}
+
+def test_invalid_input_non_graph():
+    invalid_input = "not a graph"
+
+    node_comms, comms_dict = detect.detect_communities(invalid_input)
+
+    assert node_comms == {} or node_comms is None
+    assert comms_dict == {} or comms_dict is None
