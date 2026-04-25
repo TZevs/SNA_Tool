@@ -14,7 +14,7 @@ def assign_global_roles(df, thresholds):
             global_roles[row.node] ='Global Hub'
             continue
 
-        # Global Broker: high betweenness + low cohesion metrics -> cross-community bridges/bottlenecks
+        # Global Broker: high betweenness + low cohesion metrics -> cross-community bridge (bottleneck)
         if (row.betweenness >= thresholds.loc[0.90, 'betweenness'] and
             row.global_closeness <= thresholds.loc[0.50, 'global_closeness'] and
             row.eigenvector <= thresholds.loc[0.50, 'eigenvector'] and
@@ -46,8 +46,7 @@ def assign_global_roles(df, thresholds):
     # Convert role assignments to df; row=node, column=global_role
     df = pd.DataFrame(
         {'node': node,'global_role': role}
-        for node, roles in global_roles.items()
-        for role in roles
+        for node, role in global_roles.items()
     )
     return df
 
@@ -111,7 +110,6 @@ def assign_local_roles(df, thresholds):
     # Convert role assignments to df; row=node, column=local_role
     df = pd.DataFrame(
         {'node': node, 'local_role': role}
-        for node, roles in local_roles.items()
-        for role in roles
+        for node, role in local_roles.items()
     )
     return df
