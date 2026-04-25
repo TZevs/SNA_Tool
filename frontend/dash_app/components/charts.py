@@ -37,8 +37,6 @@ def role_bar_chart(data, type):
     fig = px.histogram(
         x=roles,
         color=roles,
-        #labels={"x": f'{type}', "count": "Count"},
-        #template="plotly_dark",
         color_discrete_map=palette,
     )
 
@@ -93,6 +91,7 @@ def community_graph(data):
                 'style': {
                     'width': 0.3,        # ultra‑thin
                     'line-color': '#999',
+                    'opacity': 0.8
                 }
             },
             *[
