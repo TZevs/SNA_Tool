@@ -53,7 +53,7 @@ def run_pipeline(file_path='../../data/raw/facebook_combined.txt', verbose=True)
         print(f"Community Detection: {end_comm - start_comm:.4f}s")
 
     # ------------------------------------
-    # Local Metrics Pipeline
+    # Local Metrics
     # ------------------------------------
     start_local = time.perf_counter()
     z_score, part_eff = run_local_metrics_pipeline(G, node_comms, comms)
@@ -134,5 +134,3 @@ def run_pipeline(file_path='../../data/raw/facebook_combined.txt', verbose=True)
             print(f"{step:<35} {t:.4f}s")
 
     return df
-
-run_pipeline()
