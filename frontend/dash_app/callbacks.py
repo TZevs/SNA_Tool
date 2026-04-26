@@ -246,7 +246,7 @@ def show_local_node_info(node):
         dbc.CardBody([
             html.Div([
                 html.Strong(f"Role: "),
-                html.Span(d.get('role', 'No Role Assigned')),
+                html.Span(d.get('local_role', 'No Role Assigned')),
                 html.Br(),
                 html.Strong(f"Z-Score: "),
                 html.Span(d.get('local_zscore')),
