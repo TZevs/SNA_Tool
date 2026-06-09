@@ -1,1 +1,2 @@
-# Final Project: Social Influence Analysis Tool
+Dissertation/Final Project
+# Social Network Analysis Tool
