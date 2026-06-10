@@ -1,0 +1,114 @@
+{
+  "c0": {
+    "num_nodes": 350,
+    "num_edges": 2845,
+    "density": 0.046582071223905036,
+    "diameter": 3,
+    "avg_deg": 16.257142857142856
+  },
+  "c1": {
+    "num_nodes": 321,
+    "num_edges": 6282,
+    "density": 0.12231308411214953,
+    "diameter": 4,
+    "avg_deg": 39.14018691588785
+  },
+  "c2": {
+    "num_nodes": 118,
+    "num_edges": 1032,
+    "density": 0.14950021729682747,
+    "diameter": 8,
+    "avg_deg": 17.491525423728813
+  },
+  "c3": {
+    "num_nodes": 446,
+    "num_edges": 16755,
+    "density": 0.16884163853479114,
+    "diameter": 2,
+    "avg_deg": 75.13452914798206
+  },
+  "c4": {
+    "num_nodes": 433,
+    "num_edges": 6087,
+    "density": 0.06508211444701052,
+    "diameter": 5,
+    "avg_deg": 28.115473441108545
+  },
+  "c5": {
+    "num_nodes": 25,
+    "num_edges": 260,
+    "density": 0.8666666666666667,
+    "diameter": 2,
+    "avg_deg": 20.8
+  },
+  "c6": {
+    "num_nodes": 206,
+    "num_edges": 1983,
+    "density": 0.09391427894861473,
+    "diameter": 3,
+    "avg_deg": 19.25242718446602
+  },
+  "c7": {
+    "num_nodes": 226,
+    "num_edges": 5600,
+    "density": 0.22025565388397247,
+    "diameter": 5,
+    "avg_deg": 49.557522123893804
+  },
+  "c8": {
+    "num_nodes": 535,
+    "num_edges": 8691,
+    "density": 0.06084217158458469,
+    "diameter": 3,
+    "avg_deg": 32.489719626168224
+  },
+  "c9": {
+    "num_nodes": 19,
+    "num_edges": 136,
+    "density": 0.7953216374269005,
+    "diameter": 2,
+    "avg_deg": 14.31578947368421
+  },
+  "c10": {
+    "num_nodes": 423,
+    "num_edges": 11422,
+    "density": 0.12797328941324101,
+    "diameter": 2,
+    "avg_deg": 54.004728132387704
+  },
+  "c11": {
+    "num_nodes": 19,
+    "num_edges": 129,
+    "density": 0.7543859649122807,
+    "diameter": 2,
+    "avg_deg": 13.578947368421053
+  },
+  "c12": {
+    "num_nodes": 237,
+    "num_edges": 16543,
+    "density": 0.5915397268111278,
+    "diameter": 3,
+    "avg_deg": 139.60337552742615
+  },
+  "c13": {
+    "num_nodes": 73,
+    "num_edges": 1486,
+    "density": 0.5654490106544902,
+    "diameter": 3,
+    "avg_deg": 40.71232876712329
+  },
+  "c14": {
+    "num_nodes": 548,
+    "num_edges": 5356,
+    "density": 0.03573573172847249,
+    "diameter": 3,
+    "avg_deg": 19.547445255474454
+  },
+  "c15": {
+    "num_nodes": 60,
+    "num_edges": 205,
+    "density": 0.11581920903954802,
+    "diameter": 2,
+    "avg_deg": 6.833333333333333
+  }
+}

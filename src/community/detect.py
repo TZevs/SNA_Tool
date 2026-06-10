@@ -1,26 +1,31 @@
 import networkx as nx
 
 def detect_communities(G):
-    # Create copy of graph, so that changes are not made to the original
-    H = G.copy()
+    # Detect communities using the Louvain algorithm
 
-    #
+    # Check G is actually a valid graph
+    if not isinstance(G, nx.Graph):
+        return {}, {}
 
-    # Returns a single list of node sets, 1 per community
-    coms_list = nx.community.louvain_communities(H)
+    # Returns a list of node sets, each set represents 1 community
+    comms_list = nx.community.louvain_communities(G)
 
-    partition_mod = nx.community.modularity(coms_list)
+    # Compute the modularity score for the community partitions
+    mod = nx.community.modularity(G, comms_list)
 
-    node_coms = {}
-    for index, com in enumerate(coms_list):
+    # Store community ID per node {node: comm_id}
+    node_comms = {}
+    for index, com in enumerate(comms_list):
         for n in com:
-            node_coms[n] = f'c{index}'
+            # Set community ID per node
+            node_comms[n] = f'c{index}'
 
-    # Dictionary to store the communities and their metrics
-    coms_dict = {}
+    # Store community sets as dictionary
+    comms = {}
     # Iterate through the list, use enumerate to get the set index's
-    for index, com in enumerate(coms_list):
-        # Assign an ID as a key to each community
-        coms_dict[f'c{index}'] = list(com)
+    for index, comm in enumerate(comms_list):
+        # Assign an ID as a key for each community
+        comms[f'c{index}'] = list(comm)
 
-    return partition_mod, node_coms, coms_dict
+    # Return {node: comm_id}, {comm_id: list(nodes)}, modularity score
+    return node_comms, comms, mod
