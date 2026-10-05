@@ -4,19 +4,16 @@
 ## About
 [2-4 Sentences: what problem it solves, how I approached it, and the result] 
 
-This project focuses on developing a social network analysis tool aimed at businesses and marketing teams who want to understand and expand their social influence within a network. Given an uploaded social network dataset (an edge list), the tool computes global and local structural metrics, detects communities, assigns roles, and produces recomendations to help the user determine the best nodes to target. 
+This project focuses on developing a social network analysis tool aimed at businesses and marketing teams who want to understand and expand their social influence within a network. Given an uploaded social network dataset (an edge list), the tool computes global and local structural metrics, detects communities, assigns roles, and produces recommendations to help the user determine the best nodes to target. 
+
+**Problem:** 
+**Approach:**
+**Result:**
 
 **Status:** High Fidelity Prototype Working, but not running.
 
 ### Features
-
-
-### The Problem & My Approach
-**Problem:**
-<br>
-**Approach:**
-<br>
-**Result:**
+- 
 
 ### Tech Stack
 ![Python](https://img.shields.io/badge/python-%233670A0.svg?style=for-the-badge&logo=python&logoColor=ffdd54)
@@ -37,8 +34,11 @@ This project focuses on developing a social network analysis tool aimed at busin
 
 ---
 ## Installation
-**Run Locally:** 
-
+**Run Locally:**
+```bash
+git clone https://github.com/TZevs/SNA_Tool.git
+cd SNA_Tool
+```
 
 ### Usage
 
