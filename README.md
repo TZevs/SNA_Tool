@@ -1,19 +1,20 @@
-# Social Network Analysis Tool
+# Social Network Analysis Tool (SNA Tool)
 [_Dissertation Final Project_]
 
 ## About
-[2-4 Sentences: what problem it solves, how I approached it, and the result] 
-
+This is my final-year dissertation project for Software Engineering at Sheffield Hallam University (2026). It was developed to meet a marking criteria, so it is **not at a production-level standard**. 
 This project focuses on developing a social network analysis tool aimed at businesses and marketing teams who want to understand and expand their social influence within a network. Given an uploaded social network dataset (an edge list), the tool computes global and local structural metrics, detects communities, assigns roles, and produces recommendations to help the user determine the best nodes to target. 
 
 **Problem:** 
+<br>
 **Approach:**
+<br>
 **Result:**
 
 **Status:** High Fidelity Prototype Working, but not running.
 
 ### Features
-- 
+- A dashboard UI to view the analysis.
 
 ### Tech Stack
 ![Python](https://img.shields.io/badge/python-%233670A0.svg?style=for-the-badge&logo=python&logoColor=ffdd54)
@@ -33,20 +34,15 @@ This project focuses on developing a social network analysis tool aimed at busin
 ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 
 ---
-## Installation
-**Run Locally:**
+## Run Locally
 ```bash
 git clone https://github.com/TZevs/SNA_Tool.git
 cd SNA_Tool
 ```
 
-### Usage
-
-
 ---
 ## Known Issues & Improvements to be Made 
-
-
+- 
 
 ---
 ## Credits & Licenses
