@@ -12,9 +12,9 @@ An accessible social network / influence analysis tool that helps non-technical 
 ## 🎓 About This Project
 > This is my final-year **dissertation** project for Software Engineering at Sheffield Hallam University (2026). It was developed to meet a marking criteria, so it is **not at a production-level standard**. 
 
-**Problem:** Social network analysis (SNA) can show importance within a network, however the available tools are more for academic purposes, not for practical applications that business users may be interested in. This tool takes an edge list and turns its analysis into clear interpretable roles with recommendations displayed on an interactive dashboard. 
+🫟**Problem:** Social network analysis (SNA) can show importance within a network, however the available tools are more for academic purposes, not for practical applications that business users may be interested in. This tool takes an edge list and turns its analysis into clear interpretable roles with recommendations displayed on an interactive dashboard. 
 
-**Approach:** It is built as a modular pipeline (graph, global metrics, community, roles, recommendation, evaluation), with a FastAPI backend serving the results to a Dash frontend. Roles are assigned using percentile-based thresholds on the computed metrics, and validated with Spearman and Kendall rank correlation. 
+🚪**Approach:** It is built as a modular pipeline (graph, global metrics, community, roles, recommendation, evaluation), with a FastAPI backend serving the results to a Dash frontend. Roles are assigned using percentile-based thresholds on the computed metrics, and validated with Spearman and Kendall rank correlation. 
 
 🚦**Status:** Currently debugging, small data loading issue. High Fidelity Prototype. Tested on a medium sized network (the Facebook SNAP dataset), other datasets and larger networks are not reliably supported. 
 
@@ -59,7 +59,7 @@ pip install -r requirements.txt
 ```
 > _If using Windows here's a link for venv setup. [Python Venv](https://www.w3schools.com/python/python_virtualenv.asp)_
 #### Usage
-To run the pipeline:
+##### To run the pipeline:
 > _If in PyCharm just open `pipeline.py`, click ▶️ button._
 ```bash
 cd src/pipelines
@@ -81,7 +81,8 @@ Open the Dash app by following the local host link returned in the terminal.
 
 ---
 ## 🤝 Credits 
-This project was created as a final dissertation project for my degree at Sheffield Hallam University.
+This project was created as a final dissertation project for my degree at Sheffield Hallam University.<br>
+Supervisor: Jaya Tangirala
 
 Guimerà, R., & Nunes Amaral, L. A. (2005). Functional cartography of complex metabolic networks. Nature, 433(7028), 895–900. https://doi.org/10.1038/nature03288
 
