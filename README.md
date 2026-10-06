@@ -59,10 +59,22 @@ pip install -r requirements.txt
 ```
 > _If using Windows here's a link for venv setup. [Python Venv](https://www.w3schools.com/python/python_virtualenv.asp)_
 #### Usage
-
+To run the pipeline:
+> _If in PyCharm just open `pipeline.py`, click ▶️ button._
+```bash
+cd src/pipelines
+python pipeline.py
+```
+##### To Run the Tool (separate terminals):
+```bash
+fastapi dev     # Run in Root directory
+python frontend/dash_app/app.py 
+```
+Open the Dash app by following the local host link returned in the terminal. 
 
 ---
 ## 🔍 Known Issues & Improvements to be Made 
+- Running the pipeline(currently run it via `python pipeline.py`: optimise speed with async, allow it to be ran when called. 
 - NetworkX is slow on large networks: optimise the pipeline or try a faster library (igraph, graph-tool).
 - Only the Facebook SNAP dataset is reliably supported: test and support more datasets.
 - Static, unweighted networks only: adjust algorithms to support weighted and directed networks.
