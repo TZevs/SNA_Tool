@@ -1,6 +1,7 @@
 # Social Network Analysis Tool For Businesses
-A social network / influence analysis tool that assists businesses measure node-level and network-level metrics, group communities, and identify roles across the entire network and within each community. 
+An accessible social network / influence analysis tool that helps non-technical business users understand the structure of a network and their influence within it.
 <br>
+
 <img width="360" height="161" alt="UI_1" src="https://github.com/user-attachments/assets/3fe90ee6-dcd5-4add-8e63-2c7764922044" />
 <img width="360" height="161" alt="UI_4" src="https://github.com/user-attachments/assets/dc9c8605-14f8-4a7e-8b48-cdc262d30e83" />
 <img width="360" height="161" alt="UI_2" src="https://github.com/user-attachments/assets/dd38262a-5821-4f0d-b7c5-7ff3a5f8ba0b" />
@@ -9,20 +10,24 @@ A social network / influence analysis tool that assists businesses measure node-
 
 
 ## 🎓 About This Project
-This is my final-year **dissertation** project for Software Engineering at Sheffield Hallam University (2026). It was developed to meet a marking criteria, so it is **not at a production-level standard**. 
-This project focuses on developing a social network analysis tool aimed at businesses and marketing teams who want to understand and expand their social influence within a network. Given an uploaded social network dataset (an edge list), the tool computes global and local structural metrics, detects communities, assigns roles, and produces recommendations to help the user determine the best nodes to target. 
+> This is my final-year **dissertation** project for Software Engineering at Sheffield Hallam University (2026). It was developed to meet a marking criteria, so it is **not at a production-level standard**. 
 
-**Problem:** Nowadays businesses need to be able to understand social networks in order to successfully utilise them for marketing purposes, the tools available are targeted at academic purposes, leaving a gap for the development of non-technical interpretable tools for businesses.  
-<br>
-**Approach:** 
-<br>
-**Result:**
+**Problem:** Social network analysis (SNA) can show importance within a network, however the available tools are more for academic purposes, not for practical applications that business users may be interested in. This tool takes an edge list and turns its analysis into clear interpretable roles with recommendations displayed on an interactive dashboard. 
 
-🚦**Status:** Minor Bug affecting the loading of data.
+**Approach:** It is built as a modular pipeline (graph, global metrics, community, roles, recommendation, evaluation), with a FastAPI backend serving the results to a Dash frontend. Roles are assigned using percentile-based thresholds on the computed metrics, and validated with Spearman and Kendall rank correlation. 
+
+🚦**Status:** Currently debugging, small data loading issue. High Fidelity Prototype. Tested on a medium sized network (the Facebook SNAP dataset), other datasets and larger networks are not reliably supported. 
 
 ### ✨ Features
-- A dashboard UI to view the analysis.
-- A pipeline that runs the analysis. 
+- Loads and cleans an edge-list dataset then models it as a graph. 
+- Computes Global Metrics: degree, eigenvector, betweenness, closeness, k-core, k-truss.
+- Louvain Community Detection, with local metrics: z-score and participation coefficient. 
+- Global and local role assignment based on percentile thresholds computed on the metrics.
+- Role-based recommendations written for business users.
+  - Global: Hub, Broker, Core, Spreader, Peripheral.
+  - Local: Provincial Hub, Connector Hub, Kinless Hub, Peripheral, Ultra-Peripheral, Connector, Kinless.  
+- Evaluation metrics: Spearman and Kendall correlation and modularity for community quality.
+- Interactive dashboard UI with role distributions, community graphs, and metric charts. 
 
 ### 🛠️ Tech Stack
 ![Python](https://img.shields.io/badge/python-%233670A0.svg?style=for-the-badge&logo=python&logoColor=ffdd54)
@@ -44,18 +49,31 @@ This project focuses on developing a social network analysis tool aimed at busin
 
 ---
 ## 🚀 Run Locally
+#### Installation
 ```bash
 git clone https://github.com/TZevs/SNA_Tool.git
 cd SNA_Tool
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 ```
+> _If using Windows here's a link for venv setup. [Python Venv](https://www.w3schools.com/python/python_virtualenv.asp)_
+#### Usage
+
 
 ---
 ## 🔍 Known Issues & Improvements to be Made 
-- 
+- NetworkX is slow on large networks: optimise the pipeline or try a faster library (igraph, graph-tool).
+- Only the Facebook SNAP dataset is reliably supported: test and support more datasets.
+- Static, unweighted networks only: adjust algorithms to support weighted and directed networks.
 
 ---
 ## 🤝 Credits 
 This project was created as a final dissertation project for my degree at Sheffield Hallam University.
+
+Guimerà, R., & Nunes Amaral, L. A. (2005). Functional cartography of complex metabolic networks. Nature, 433(7028), 895–900. https://doi.org/10.1038/nature03288
+
+Leskovec, J. (2026). Stanford Large Network Dataset Collection. Stanford.Edu. https://snap.stanford.edu/data/
 
 ## 📄 License
 This project is licensed under the MIT License. 
