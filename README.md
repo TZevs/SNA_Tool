@@ -49,8 +49,8 @@ An accessible social network / influence analysis tool that helps non-technical 
 ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 
 ---
-## 🚀 Run Locally
-#### Installation
+## 📦 Setup
+#### 🚀 Installation
 ```bash
 git clone https://github.com/TZevs/SNA_Tool.git
 cd SNA_Tool
@@ -60,14 +60,16 @@ pip install -r requirements.txt
 ```
 > _If using Windows here's a link for venv setup. [Python Venv](https://www.w3schools.com/python/python_virtualenv.asp)_
 #### Usage
-##### To run the pipeline:
+##### Run the pipeline:
 > _If in PyCharm just open `pipeline.py`, click ▶️ button._
 ```bash
 cd src/pipelines
 python pipeline.py
 ```
-##### To Run the Tool (separate terminals):
+#### Run App Locally:
 ```bash
+# Run in separate terminals
+
 fastapi dev     # Run in Root directory
 python frontend/dash_app/app.py 
 ```
