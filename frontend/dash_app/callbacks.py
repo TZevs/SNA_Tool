@@ -6,7 +6,7 @@ from components.charts import role_bar_chart, community_graph, global_degree_his
 from components.overview import overview_cards
 from loaders import load_global_data, load_community_data, load_community_ids, load_local_recs, load_local_stats
 
-GLOBAL_DATA = load_global_data()
+# GLOBAL_DATA = load_global_data()
 
 # Initialise Store Data
 @callback(

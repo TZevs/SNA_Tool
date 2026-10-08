@@ -1,5 +1,16 @@
+print("1 - starting")
+
 from dash import Dash, html, dcc
+
+print("2 - dash imported")
+
+import dash_bootstrap_components as dbc
+
+print("3 - dbc imported")
+
 from callbacks import *
+
+print("4 - callbacks imported")
 
 app = Dash(
     __name__,
@@ -11,6 +22,8 @@ app = Dash(
     ],
     suppress_callback_exceptions=True
 )
+
+print("5 - Dash app created")
 server = app.server
 
 # ── Stores ────────────────────────────────────────────────────────────────────
