@@ -1,13 +1,11 @@
 # Social Network Analysis Tool For Businesses
 An accessible social network / influence analysis tool that helps non-technical business users understand the structure of a network and their influence within it.
 <br>
-
 <img width="360" height="161" alt="UI_1" src="https://github.com/user-attachments/assets/3fe90ee6-dcd5-4add-8e63-2c7764922044" />
 <img width="360" height="161" alt="UI_4" src="https://github.com/user-attachments/assets/dc9c8605-14f8-4a7e-8b48-cdc262d30e83" />
 <img width="360" height="161" alt="UI_2" src="https://github.com/user-attachments/assets/dd38262a-5821-4f0d-b7c5-7ff3a5f8ba0b" />
 <img width="360" height="161" alt="UI_5" src="https://github.com/user-attachments/assets/76da8109-8f46-4055-8111-1649bc89874a" />
 <img width="360" height="161" alt="UI_3" src="https://github.com/user-attachments/assets/7c8441c1-20d1-4b0e-8fba-0df08ef14bd3" />
-
 
 ## 🎓 About This Project
 > This is my final-year **dissertation** project for Software Engineering at Sheffield Hallam University (2026). It was developed to meet a marking criteria, so it is **not at a production-level standard**. 
@@ -50,7 +48,7 @@ An accessible social network / influence analysis tool that helps non-technical 
 
 ---
 ## 📦 Setup
-#### 🚀 Installation
+### 🚀 Installation
 ```bash
 git clone https://github.com/TZevs/SNA_Tool.git
 cd SNA_Tool
@@ -59,8 +57,9 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 > _If using Windows here's a link for venv setup. [Python Venv](https://www.w3schools.com/python/python_virtualenv.asp)_
-#### Usage
-##### Run the pipeline:
+
+### Usage
+#### Run the pipeline:
 > _If in PyCharm just open `pipeline.py`, click ▶️ button._
 ```bash
 cd src/pipelines
